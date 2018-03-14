@@ -21,7 +21,7 @@ pipeline {
 
         ORGANIZATION = "ons"
         TEAM = "sbr"
-        MODULE_NAME = "enterprise-assemble"
+        MODULE_NAME = “enterprise-multiple—leu-assemble"
 
         // hbase config
         CH_TABLE = "ch"

@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1c1e44b-f35a-4459-a8d7-fc2c9b6ca37e" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/data/idbr_data/_SUCCESS" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/data/idbr_data/part-00000-8b821ca3-4b8e-41e6-a52d-db216aaee690-c000.snappy.parquet" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/data/idbr_data/part-00001-8b821ca3-4b8e-41e6-a52d-db216aaee690-c000.snappy.parquet" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/scala-2.11/classes/data/idbr_data/_SUCCESS" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/scala-2.11/classes/data/idbr_data/part-00000-8b821ca3-4b8e-41e6-a52d-db216aaee690-c000.snappy.parquet" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/scala-2.11/classes/data/idbr_data/part-00001-8b821ca3-4b8e-41e6-a52d-db216aaee690-c000.snappy.parquet" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/dao/hbase/converter/WithConvertionHelper.scala" afterPath="$PROJECT_DIR$/src/main/scala/dao/hbase/converter/WithConvertionHelper.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/dao/parquet/ParquetDAO.scala" afterPath="$PROJECT_DIR$/src/main/scala/dao/parquet/ParquetDAO.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Jenkinsfile" afterPath="$PROJECT_DIR$/Jenkinsfile" />
     </list>
     <ignored path="sbr-enterprise_assembler.iws" />
     <ignored path=".idea/workspace.xml" />
