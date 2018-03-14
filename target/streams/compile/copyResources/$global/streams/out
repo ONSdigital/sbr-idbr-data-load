@@ -1,0 +1,14 @@
+[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
+[0m[[0mdebug[0m] [0m	(/Users/chohab/project/sbr-idbr-data-load/src/main/resources/application.conf,/Users/chohab/project/sbr-idbr-data-load/target/scala-2.11/classes/application.conf)[0m
+[0m[[0mdebug[0m] [0m	(/Users/chohab/project/sbr-idbr-data-load/src/main/resources/data,/Users/chohab/project/sbr-idbr-data-load/target/scala-2.11/classes/data)[0m
+[0m[[0mdebug[0m] [0m	(/Users/chohab/project/sbr-idbr-data-load/src/main/resources/hbase-site.xml,/Users/chohab/project/sbr-idbr-data-load/target/scala-2.11/classes/hbase-site.xml)[0m
+[0m[[0mdebug[0m] [0m	(/Users/chohab/project/sbr-idbr-data-load/src/main/resources/data/enterprise,/Users/chohab/project/sbr-idbr-data-load/target/scala-2.11/classes/data/enterprise)[0m
+[0m[[0mdebug[0m] [0m	(/Users/chohab/project/sbr-idbr-data-load/src/main/resources/data/idbr.csv,/Users/chohab/project/sbr-idbr-data-load/target/scala-2.11/classes/data/idbr.csv)[0m
+[0m[[0mdebug[0m] [0m	(/Users/chohab/project/sbr-idbr-data-load/src/main/resources/data/idbr_data,/Users/chohab/project/sbr-idbr-data-load/target/scala-2.11/classes/data/idbr_data)[0m
+[0m[[0mdebug[0m] [0m	(/Users/chohab/project/sbr-idbr-data-load/src/main/resources/data/links,/Users/chohab/project/sbr-idbr-data-load/target/scala-2.11/classes/data/links)[0m
+[0m[[0mdebug[0m] [0m	(/Users/chohab/project/sbr-idbr-data-load/src/main/resources/data/sample.json,/Users/chohab/project/sbr-idbr-data-load/target/scala-2.11/classes/data/sample.json)[0m
+[0m[[0mdebug[0m] [0m	(/Users/chohab/project/sbr-idbr-data-load/src/main/resources/data/small.json,/Users/chohab/project/sbr-idbr-data-load/target/scala-2.11/classes/data/small.json)[0m
+[0m[[0mdebug[0m] [0m	(/Users/chohab/project/sbr-idbr-data-load/src/main/resources/data/smallWithNullValues.json,/Users/chohab/project/sbr-idbr-data-load/target/scala-2.11/classes/data/smallWithNullValues.json)[0m
+[0m[[0mdebug[0m] [0m	(/Users/chohab/project/sbr-idbr-data-load/src/main/resources/data/idbr_data/_SUCCESS,/Users/chohab/project/sbr-idbr-data-load/target/scala-2.11/classes/data/idbr_data/_SUCCESS)[0m
+[0m[[0mdebug[0m] [0m	(/Users/chohab/project/sbr-idbr-data-load/src/main/resources/data/idbr_data/part-00000-8b821ca3-4b8e-41e6-a52d-db216aaee690-c000.snappy.parquet,/Users/chohab/project/sbr-idbr-data-load/target/scala-2.11/classes/data/idbr_data/part-00000-8b821ca3-4b8e-41e6-a52d-db216aaee690-c000.snappy.parquet)[0m
+[0m[[0mdebug[0m] [0m	(/Users/chohab/project/sbr-idbr-data-load/src/main/resources/data/idbr_data/part-00001-8b821ca3-4b8e-41e6-a52d-db216aaee690-c000.snappy.parquet,/Users/chohab/project/sbr-idbr-data-load/target/scala-2.11/classes/data/idbr_data/part-00001-8b821ca3-4b8e-41e6-a52d-db216aaee690-c000.snappy.parquet)[0m

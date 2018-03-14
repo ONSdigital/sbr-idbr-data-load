@@ -6,6 +6,7 @@ import org.apache.hadoop.hbase.KeyValue
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable
 import org.apache.hadoop.hbase.mapreduce.HFileOutputFormat2
 import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.types.{ArrayType, LongType, StringType,StructType, StructField, IntegerType}
 import org.slf4j.LoggerFactory
 
 
@@ -16,12 +17,12 @@ object ParquetDAO extends WithConvertionHelper{
 
   val logger = LoggerFactory.getLogger(getClass)
 
+
   def jsonToParquet(jsonFilePath:String)(implicit spark:SparkSession) = spark.read.json(jsonFilePath).write.parquet(PATH_TO_PARQUET)
 
   def parquetToHFile(implicit spark:SparkSession){
 
-
-    val parquetRDD = spark.read.parquet(PATH_TO_PARQUET).rdd.map(toRecords).cache()
+    val parquetRDD = spark.read.parquet("src/main/resources/data/idbr_data").rdd.map(toRecords).cache()
 
     parquetRDD.flatMap(_.links).sortBy(t => s"${t._2.key}${t._2.qualifier}")
       .map(rec => (new ImmutableBytesWritable(rec._1.getBytes()), rec._2.toKeyValue))
