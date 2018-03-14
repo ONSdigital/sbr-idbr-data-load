@@ -69,37 +69,10 @@ trait WithConvertionHelper {
       rowToLegalUnitLinks(row,keyStr,ern)
     }
 
-
-//  private def rowToLegalUnitLinks(row:Row, ern:String):Seq[(String, RowObject)] = {
-//      val ubrn = getId(row)
-//      val luKey = generateLinkKey(ubrn,legalUnit)
-//      createLinksRecord(luKey,s"$parentPrefix$enterprise",ern) +: (rowToCHLinks(row,luKey,ubrn) ++ rowToVatRefsLinks(row,luKey,ubrn) ++ rowToPayeRefLinks(row,luKey,ubrn))
-//    }
-
   private def rowToLegalUnitLinks(row:Row, keyStr:String, ern:String):Seq[(String, RowObject)] = row.getStringSeq("ubrn").map(_.flatMap(ubrn => Seq(
     createLinksRecord(keyStr,s"$childPrefix$ubrn",legalUnit),
     createLinksRecord(generateLinkKey(ubrn.toString,legalUnit),s"$parentPrefix$enterprise",ern.toString)
   ))).getOrElse (Seq[(String, RowObject)]())
-
-//  private def rowToCHLinks(row:Row, luKey:String, ubrn:String):Seq[(String, RowObject)] = row.getString("CompanyNo").map(companyNo => Seq(
-//      createLinksRecord(luKey,s"$childPrefix$companyNo",companiesHouse),
-//      createLinksRecord(generateLinkKey(companyNo,companiesHouse),s"$parentPrefix$legalUnit",ubrn)
-//    )).getOrElse(Seq[(String, RowObject)]())
-//
-//
-//  private def rowToVatRefsLinks(row:Row, luKey:String, ubrn:String):Seq[(String, RowObject)] = row.getLongSeq("VatRefs").map(_.flatMap(vat => Seq(
-//        createLinksRecord(luKey,s"$childPrefix$vat",vatValue),
-//        createLinksRecord(generateLinkKey(vat.toString,vatValue),s"$parentPrefix$legalUnit",ubrn.toString)
-//      ))).getOrElse (Seq[(String, RowObject)]())
-//
-//
-//
-//  private def rowToPayeRefLinks(row:Row, luKey:String, ubrn:String):Seq[(String, RowObject)] = row.getStringSeq("PayeRefs").map(_.flatMap(paye => Seq(
-//        createLinksRecord(luKey,s"$childPrefix$paye",payeValue),
-//        createLinksRecord(generateLinkKey(paye,payeValue),s"$parentPrefix$legalUnit",ubrn.toString)
-//      ))).getOrElse(Seq[(String, RowObject)]())
-//
-//  private def getId(row:Row) = row.getLong("id").map(_.toString).getOrElse(throw new IllegalArgumentException("id must be present"))
 
   private def createLinksRecord(key:String,column:String, value:String) = createRecord(key,HBASE_LINKS_COLUMN_FAMILY,column,value)
 
@@ -109,7 +82,7 @@ trait WithConvertionHelper {
 
   private def getErn(row:Row) = row.getString("ern").map(_.toString).getOrElse(throw new IllegalArgumentException("ern must be present"))
 
-  private def getIdbrref(row:Row) = row.getString("entref").map(_.toString).getOrElse(throw new IllegalArgumentException("ern must be present"))
+  private def getIdbrref(row:Row) = row.getString("entref").map(_.toString).getOrElse(throw new IllegalArgumentException("entref must be present"))
 
   private def generateEntKey(ern:String) = s"${ern.reverse}~$period"
 
