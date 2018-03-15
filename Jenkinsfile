@@ -24,9 +24,6 @@ pipeline {
         MODULE_NAME = "sbr-idbr-data-load"
 
         // hbase config
-        CH_TABLE = "ch"
-        VAT_TABLE = "vat"
-        PAYE_TABLE = "paye"
         NAMESPACE = "sbr_dev_db"
     }
     options {
@@ -54,12 +51,12 @@ pipeline {
 
         stage ('Package and Push Artifact') {
             agent any
-           /* when {
+            when {
                 anyOf {
                     branch DEPLOY_DEV
                     branch DEPLOY_TEST
                 }
-            }*/
+            }
             steps {
                 script {
                     env.NODE_STAGE = "Package and Push Artifact"
@@ -73,20 +70,6 @@ pipeline {
         }
 
 
-    }
-}
-
-def push (String newTag, String currentTag) {
-    echo "Pushing tag ${newTag} to Gitlab"
-    GitRelease( GIT_CREDS, newTag, currentTag, "${env.BUILD_ID}", "${env.BRANCH_NAME}", GIT_TYPE)
-}
-
-def deploy (String dataSource) {
-    CF_SPACE = "${env.DEPLOY_NAME}".capitalize()
-    CF_ORG = "${TEAM}".toUpperCase()
-    echo "Deploying Api app to ${env.DEPLOY_NAME}"
-    withCredentials([string(credentialsId: CF_CREDS, variable: 'APPLICATION_SECRET')]) {
-        deployToCloudFoundryHBase("${TEAM}-${env.DEPLOY_NAME}-cf", "${CF_ORG}", "${CF_SPACE}", "${env.DEPLOY_NAME}-${dataSource}-${MODULE_NAME}", "${env.DEPLOY_NAME}-${ORGANIZATION}-${MODULE_NAME}.zip", "gitlab/${env.DEPLOY_NAME}/manifest.yml", "${dataSource}", NAMESPACE)
     }
 }
 

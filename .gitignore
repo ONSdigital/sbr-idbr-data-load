@@ -8,6 +8,7 @@ project/boot/
 *.class
 *.log
 *.DS_Store
+*.hfile
 
 .cache
 .history

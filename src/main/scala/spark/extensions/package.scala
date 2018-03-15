@@ -5,7 +5,7 @@ import org.apache.spark.sql.Row
 /**
   *
   */
-package object sql {
+package object SQL {
 
   implicit class SqlRowExtensions(val row:Row) {
 

@@ -4,9 +4,7 @@ package dao.hbase.converter
 import global.Configs
 import model._
 import org.apache.spark.sql.Row
-
-import scala.util.Random
-import spark.extensions.sql.SqlRowExtensions
+import spark.extensions.SQL.SqlRowExtensions
 /**
 * Schema:
 * index | fields
@@ -37,14 +35,11 @@ trait WithConvertionHelper {
 
   import Configs._
 
-  lazy val period = "201802"//conf.getStrings("enterprise.data.timeperiod").head
+  lazy val period = conf.getStrings("enterprise.data.timeperiod").head
 
 
     val legalUnit = "LEU"
     val enterprise = "ENT"
-    val companiesHouse = "CH"
-    val vatValue = "VAT"
-    val payeValue = "PAYE"
 
     val childPrefix = "c_"
     val parentPrefix = "p_"
