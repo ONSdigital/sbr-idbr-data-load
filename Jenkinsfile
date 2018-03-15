@@ -96,7 +96,7 @@ def copyToHBaseNode() {
         withCredentials([string(credentialsId: "sbr-hbase-node", variable: 'HBASE_NODE')]) {
             sh '''
                 ssh sbr-$DEPLOY_DEV-ci@$HBASE_NODE mkdir -p $MODULE_NAME/lib
-                scp ${WORKSPACE}/target/scala-*/esbr-idbr-data-load-assembly*.jar sbr-$DEPLOY_DEV-ci@$HBASE_NODE:$MODULE_NAME/lib/
+                scp ${WORKSPACE}/target/scala-*/sbr-idbr-data-load-assembly*.jar sbr-$DEPLOY_DEV-ci@$HBASE_NODE:$MODULE_NAME/lib/
                 echo "Successfully copied jar file to $MODULE_NAME/lib directory on $HBASE_NODE"
                 ssh sbr-$DEPLOY_DEV-ci@$HBASE_NODE hdfs dfs -put -f $MODULE_NAME/lib/sbr-idbr-data-load-assembly*.jar hdfs://prod1/user/sbr-$DEPLOY_DEV-ci/lib/
                 echo "Successfully copied jar file to HDFS"
