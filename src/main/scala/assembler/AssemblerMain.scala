@@ -12,7 +12,6 @@ object AssemblerMain extends EnterpriseAssemblerService {
      updateConf(args)
      loadFromParquet
      loadFromHFile
-
    }
 
 }
