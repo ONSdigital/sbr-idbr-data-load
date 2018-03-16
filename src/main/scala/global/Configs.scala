@@ -32,12 +32,11 @@ object Configs{
   Try{config.getString("hbase.table.enterprise.column.family")}.map(conf.set("hbase.table.enterprise.column.family",_)).getOrElse(conf.set("hbase.table.enterprise.column.family","d"))
   Try{config.getString("hbase.table.enterprise.namespace")}.map(conf.set("hbase.table.enterprise.namespace",_)).getOrElse(conf.set("hbase.table.enterprise.namespace","ons"))
 
-  Try{config.getString("files.json")}.map(conf.set("files.json",_)).getOrElse(conf.set("files.json","src/main/resources/data/sample.json"))
   Try{config.getString("files.parquet")}.map(conf.set("files.parquet",_)).getOrElse(conf.set("files.parquet","src/main/resources/data/sample.parquet"))
   Try{config.getString("files.links.hfile")}.map(conf.set("files.links.hfile",_)).getOrElse(conf.set("files.hfile","src/main/resources/data/links/hfile"))
   Try{config.getString("files.enterprise.hfile")}.map(conf.set("files.enterprise.hfile",_)).getOrElse(conf.set("files.hfile","src/main/resources/data/enterprise/hfile"))
+  Try{config.getString("spark.deployment.mode")}.map(conf.set("spark.deployment.mode",_)).getOrElse(conf.set("spark.deployment.mode","local"))
 
-   lazy val PATH_TO_JSON = conf.getStrings("files.json").head
    lazy val PATH_TO_PARQUET = conf.getStrings("files.parquet").head
 
    lazy val PATH_TO_LINKS_HFILE =  conf.getStrings("files.links.hfile").head
@@ -50,7 +49,7 @@ object Configs{
    lazy val HBASE_ENTERPRISE_TABLE_NAME = conf.getStrings("hbase.table.enterprise.name").head
    lazy val HBASE_ENTERPRISE_TABLE_NAMESPACE = conf.getStrings("hbase.table.enterprise.namespace").head
    lazy val HBASE_ENTERPRISE_COLUMN_FAMILY = conf.getStrings("hbase.table.enterprise.column.family").head
-
+   lazy val SPARK_DEPLOYMENT_MODE = conf.getStrings("spark.deployment.mode").head
 
   def updateConf(args: Array[String]) = {
 
@@ -65,7 +64,8 @@ object Configs{
     Try(args(6)).map(conf.set("files.parquet", _)).getOrElse(Unit)
     Try(args(7)).map(conf.set("hbase.zookeeper.quorum", _)).getOrElse(Unit)
     Try(args(8)).map(conf.set("hbase.zookeeper.property.clientPort", _)).getOrElse(Unit)
-    //Try(args(9)).map(conf.set("enterprise.data.timeperiod", _)).getOrElse(Unit)
+    Try(args(9)).map(conf.set("enterprise.data.timeperiod", _)).getOrElse(Unit)
+    Try(args(10)).map(conf.set("spark.deployment.mode", _)).getOrElse(Unit)
 
   }
 

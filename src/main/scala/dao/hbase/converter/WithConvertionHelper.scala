@@ -5,33 +5,8 @@ import global.Configs
 import model._
 import org.apache.spark.sql.Row
 import spark.extensions.SQL.SqlRowExtensions
-/**
-* Schema:
-* index | fields
-* -------------------
-*  0 -   BusinessName: string (nullable = true)
-*  1 -   CompanyNo: string (nullable = true)
-*  2 -   EmploymentBands: string (nullable = true)
-*  3 -   IndustryCode: string (nullable = true)
-*  4 -   LegalStatus: string (nullable = true)
-*  5 -   PayeRefs: array (nullable = true)
-*  6 -   PostCode: string (nullable = true)
-*  7 -   TradingStatus: string (nullable = true)
-*  8 -   Turnover: string (nullable = true)
-*  9 -   UPRN: long (nullable = true)
-*  10 -  VatRefs: array (nullable = true)
-*  11 -  id: long (nullable = true)
-  */
+
 trait WithConvertionHelper {
-/*
-* Rules:
-* fields needed for creating ENTERPRISE UNIT:
-* 1. ID(UBRN) - NOT NULL
-* ## At least one of the below must be present
-* 2. PayeRefs  - NULLABLE
-* 3. VatRefs - NULLABLE
-* 4. CompanyNo - NULLABLE
-* */
 
   import Configs._
 

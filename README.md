@@ -27,7 +27,7 @@ brew install hbase
 
 ### Running the App
 
-Firstly you must change src/main/scala/spark/SparkSessionManager to be able to run spark session locally rather than via cluster mode
+By default, the app will run locally. To run it in cluster mode, you must pass in the 10th paramater as "cluster"
 
 ##### HBase
 
