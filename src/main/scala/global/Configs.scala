@@ -35,6 +35,7 @@ object Configs{
   Try{config.getString("files.parquet")}.map(conf.set("files.parquet",_)).getOrElse(conf.set("files.parquet","src/main/resources/data/sample.parquet"))
   Try{config.getString("files.links.hfile")}.map(conf.set("files.links.hfile",_)).getOrElse(conf.set("files.hfile","src/main/resources/data/links/hfile"))
   Try{config.getString("files.enterprise.hfile")}.map(conf.set("files.enterprise.hfile",_)).getOrElse(conf.set("files.hfile","src/main/resources/data/enterprise/hfile"))
+  Try{config.getString("enterprise.data.timeperiod")}.map(conf.set("enterprise.data.timeperiod",_)).getOrElse(conf.set("enterprise.data.timeperiod","201802"))
   Try{config.getString("spark.deployment.mode")}.map(conf.set("spark.deployment.mode",_)).getOrElse(conf.set("spark.deployment.mode","local"))
 
    lazy val PATH_TO_PARQUET = conf.getStrings("files.parquet").head
@@ -49,6 +50,7 @@ object Configs{
    lazy val HBASE_ENTERPRISE_TABLE_NAME = conf.getStrings("hbase.table.enterprise.name").head
    lazy val HBASE_ENTERPRISE_TABLE_NAMESPACE = conf.getStrings("hbase.table.enterprise.namespace").head
    lazy val HBASE_ENTERPRISE_COLUMN_FAMILY = conf.getStrings("hbase.table.enterprise.column.family").head
+   lazy val ENTERPRISE_DATA_TIMEPERIOD = conf.getStrings("enterprise.data.timeperiod").head
    lazy val SPARK_DEPLOYMENT_MODE = conf.getStrings("spark.deployment.mode").head
 
   def updateConf(args: Array[String]) = {

@@ -12,7 +12,6 @@ trait WithConvertionHelper {
 
   lazy val period = conf.getStrings("enterprise.data.timeperiod").head
 
-
     val legalUnit = "LEU"
     val enterprise = "ENT"
 
@@ -24,7 +23,6 @@ trait WithConvertionHelper {
     val idbrref = getIdbrref(row)
     Tables(rowToEnterprise(row,ern,idbrref),rowToLinks(row,ern))
   }
-
 
   private def rowToEnterprise(row:Row,ern:String,idbrref:String): Seq[(String, RowObject)] = Seq(createEnterpriseRecord(ern,"ern",ern), createEnterpriseRecord(ern,"idbrref",idbrref))++
         Seq(

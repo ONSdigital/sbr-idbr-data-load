@@ -18,12 +18,10 @@ object HBaseDao {
 
   val logger = LoggerFactory.getLogger(getClass)
 
-
   def loadHFiles(implicit connection:Connection) ={
     loadLinksHFile
     loadEnterprisesHFile
   }
-
 
   def loadLinksHFile(implicit connection:Connection) = wrapTransaction(HBASE_LINKS_TABLE_NAME, Try(conf.getStrings("hbase.table.links.namespace").head).toOption){ (table, admin) =>
     val bulkLoader = new LoadIncrementalHFiles(connection.getConfiguration)
@@ -47,13 +45,11 @@ object HBaseDao {
     table.close
   }
 
-
   private def setJob(table:Table)(implicit connection:Connection){
     val job = Job.getInstance(connection.getConfiguration)
     job.setMapOutputKeyClass(classOf[ImmutableBytesWritable])
     job.setMapOutputValueClass(classOf[KeyValue])
     HFileOutputFormat2.configureIncrementalLoadMap(job, table)
   }
-
 
 }
