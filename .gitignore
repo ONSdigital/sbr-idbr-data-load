@@ -9,6 +9,8 @@ project/boot/
 *.log
 *.DS_Store
 *.hfile
+src/main/resources/data/enterprise/
+src/main/resources/data/links/
 
 .cache
 .history

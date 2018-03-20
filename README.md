@@ -27,7 +27,7 @@ brew install hbase
 
 ### Running the App
 
-By default, the app will run locally. To run it in cluster mode, you must pass in the 10th paramater as "cluster"
+By default, the app will run locally. To run it in cluster mode, you must pass in the 11th paramater as "cluster".
 
 ##### HBase
 
