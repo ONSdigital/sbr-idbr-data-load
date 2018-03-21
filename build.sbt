@@ -1,8 +1,20 @@
+import sbt.Keys._
+
 name := "sbr-enterprise_assembler"
 
 version := "1.0"
 
 scalaVersion := "2.11.8"
+
+lazy val ITest = config("it") extend Test
+
+lazy val testSettings: Seq[Def.Setting[_]] = Seq(
+  sourceDirectory in ITest := baseDirectory.value / "src/it/scala",
+  resourceDirectory in ITest := baseDirectory.value / "src/it/resources",
+  scalaSource in ITest := baseDirectory.value / "src/it/scala",
+  // test setup
+  parallelExecution in Test := false
+)
 
 lazy val Versions = new {
   val clouderaHBase = "1.2.0-cdh5.10.1"
@@ -17,6 +29,8 @@ lazy val Constants = new {
 resolvers += "cloudera" at "https://repository.cloudera.com/cloudera/cloudera-repos/"
 resolvers += "mvnrepository" at "http://mvnrepository.com/artifact/"
 resolvers += "central" at "http://repo1.maven.org/maven2/"
+
+
 
 libraryDependencies ++= Seq(
 
@@ -39,6 +53,8 @@ libraryDependencies ++= Seq(
 
 )
 
+libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.5"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 
 assemblyMergeStrategy in assembly := {
   case PathList("org", "apache", xs @ _*)    => MergeStrategy.first
@@ -59,8 +75,8 @@ mainClass in (Compile, packageBin) := Some("assembler.AssemblerMain")
 lazy val myParameters = Array("LINKS", "ons",
   "src/main/resources/data/links/hfile", "ENT",
   "ons", "src/main/resources/data/enterprise/hfile",
-  "src/main/resources/data/sample.parquet",
-  "localhost", "2181", "201802")
+  "src/main/resources/data/test.parquet", "src/main/resources/data/idbr.csv",
+  "localhost", "2181", "201802", "local")
 
 lazy val runWithArgs = taskKey[Unit]("run-args")
 

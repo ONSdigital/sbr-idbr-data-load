@@ -17,8 +17,6 @@ object ParquetDAO extends WithConvertionHelper{
 
   val logger = LoggerFactory.getLogger(getClass)
 
-  def jsonToParquet(jsonFilePath:String)(implicit spark:SparkSession) = spark.read.json(jsonFilePath).write.parquet(PATH_TO_PARQUET)
-
   def parquetToHFile(implicit spark:SparkSession){
 
     val parquetRDD = spark.read.parquet(PATH_TO_PARQUET).rdd.map(toRecords).cache()
