@@ -18,22 +18,19 @@ class CsvToParquetTest extends FreeSpec with Matchers with BeforeAndAfterAll wit
     global.Configs.conf.set("files.parquet","src/main/resources/data/test.parquet")
   }
 
-  val assembler = new EnterpriseAssemblerService{}
-  assembler.loadFromCsv
+  "A comparison with the golden master" - {
+    "should return zero differences" in {
 
-  def testCsvTransformation(implicit spark:SparkSession): Unit ={
-    val df1 = spark.read.parquet(PATH_TO_PARQUET).repartition(1).sort("entref")
-    val df2 = spark.read.parquet("src/it/resources/data/sample.parquet").repartition(1).sort("entref")
+      val assembler = new EnterpriseAssemblerService{}
+      assembler.loadFromCsv
 
-    val difference = df1.except(df2)
-    difference.count() shouldBe 0
-  }
+      val spark = SparkSession.builder().master("local[4]").appName("idbr enterprise assembler").getOrCreate()
 
+      val df1 = spark.read.parquet(PATH_TO_PARQUET).repartition(1).sort("entref")
+      val df2 = spark.read.parquet("src/it/resources/data/sample.parquet").repartition(1).sort("entref")
 
-
-  "A test" - {
-    "should be run" in {
-      withSpark{implicit SparkSession => testCsvTransformation}
+      val difference = df1.except(df2)
+      difference.count() shouldBe 0
 
 
     }
