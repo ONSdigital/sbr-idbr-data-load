@@ -1,4 +1,4 @@
-name := "sbr-enterprise_assembler"
+name := "sbr-idbr-data-load"
 
 version := "1.0"
 
