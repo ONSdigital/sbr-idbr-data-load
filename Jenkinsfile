@@ -5,7 +5,7 @@ pipeline {
     environment {
         RELEASE_TYPE = "PATCH"
 
-        BRANCH_DEV = "develop"
+        BRANCH_DEV = "REG-135"
         BRANCH_TEST = "release"
         BRANCH_PROD = "master"
 
@@ -53,8 +53,8 @@ pipeline {
             agent any
             when {
                 anyOf {
-                    branch DEPLOY_DEV
-                    branch DEPLOY_TEST
+                    branch BRANCH_DEV
+                    branch BRANCH_TEST
                 }
             }
             steps {
