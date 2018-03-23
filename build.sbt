@@ -1,4 +1,4 @@
-name := "sbr-idbr-data-load"
+name := "sbr-local-unit-data-load"
 
 version := "1.0"
 
