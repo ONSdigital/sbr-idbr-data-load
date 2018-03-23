@@ -38,7 +38,7 @@ trait WithConvertionHelper {
           row.getString("address5").map(a5 => createLocalUnitRecord(ern,lou,"address5",a5)),
           row.getString("postcode").map(pc => createLocalUnitRecord(ern,lou,"postcode",pc)),
           row.getString("sic07").map(ls => createLocalUnitRecord(ern,lou,"sic07",ls)),
-          row.getString("employeees").map(emp => createLocalUnitRecord(ern,lou,"employees",emp))
+          row.getString("employees").map(emp => createLocalUnitRecord(ern,lou,"employees",emp))
 
         ).collect{case Some(v) => v}
 
@@ -48,10 +48,10 @@ trait WithConvertionHelper {
       rowToLocalUnitLinks(row,keyStr,ern)
     }
 
-  private def rowToLocalUnitLinks(row:Row, keyStr:String, ern:String):Seq[(String, RowObject)] = row.getStringSeq("lou").map(_.flatMap(lou => Seq(
+  private def rowToLocalUnitLinks(row:Row, keyStr:String, ern:String):Seq[(String, RowObject)] = row.getString("lou").map(lou => Seq(
     createLinksRecord(keyStr,s"$childPrefix$lou",localUnit),
     createLinksRecord(generateLinkKey(lou.toString,localUnit),s"$parentPrefix$enterprise",ern.toString)
-  ))).getOrElse (Seq[(String, RowObject)]())
+  )).getOrElse (Seq[(String, RowObject)]())
 
   private def createLinksRecord(key:String,column:String, value:String) = createRecord(key,HBASE_LINKS_COLUMN_FAMILY,column,value)
 

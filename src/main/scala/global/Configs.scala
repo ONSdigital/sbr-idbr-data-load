@@ -33,7 +33,7 @@ object Configs{
   Try{config.getString("hbase.table.enterprise.namespace")}.map(conf.set("hbase.table.enterprise.namespace",_)).getOrElse(conf.set("hbase.table.enterprise.namespace","ons"))
 
   Try{config.getString("files.parquet")}.map(conf.set("files.parquet",_)).getOrElse(conf.set("files.parquet","src/main/resources/data/test.parquet"))
-  Try{config.getString("files.csv")}.map(conf.set("files.csv",_)).getOrElse(conf.set("files.csv","src/main/resources/data/idbr.csv"))
+  Try{config.getString("files.csv")}.map(conf.set("files.csv",_)).getOrElse(conf.set("files.csv","src/main/resources/data/LOC_to_ENT.csv"))
   Try{config.getString("files.links.hfile")}.map(conf.set("files.links.hfile",_)).getOrElse(conf.set("files.hfile","src/main/resources/data/links/hfile"))
   Try{config.getString("files.enterprise.hfile")}.map(conf.set("files.enterprise.hfile",_)).getOrElse(conf.set("files.hfile","src/main/resources/data/enterprise/hfile"))
   Try{config.getString("enterprise.data.timeperiod")}.map(conf.set("enterprise.data.timeperiod",_)).getOrElse(conf.set("enterprise.data.timeperiod","201802"))

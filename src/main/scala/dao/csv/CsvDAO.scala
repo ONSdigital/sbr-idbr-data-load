@@ -16,10 +16,7 @@ object CsvDAO {
 
   def csvToParquet(implicit spark:SparkSession) {
     val leuToEnt = spark.read.option("header","true").csv(PATH_TO_CSV)
-    val groupedData = leuToEnt.groupBy("entref").agg(collect_list("ubrn").alias("lou")).withColumnRenamed("entref", "entref2")
-    val leuToEntNoDuplicates = leuToEnt.drop("lou").dropDuplicates(Array("entref"))
-    val outputData = leuToEntNoDuplicates.join(groupedData, col("entref") === col("entref2")).drop("entref2")
-    outputData.write.mode("overwrite").parquet(PATH_TO_PARQUET)
+    leuToEnt.write.mode("overwrite").parquet(PATH_TO_PARQUET)
   }
 
 }
