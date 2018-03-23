@@ -1,6 +1,5 @@
 package spark
 
-import global.Configs.SPARK_DEPLOYMENT_MODE
 import org.apache.spark.sql.SparkSession
 
 trait SparkSessionManager {
