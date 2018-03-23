@@ -7,8 +7,7 @@ trait SparkSessionManager {
 
   def withSpark(doWithinSparkSession: SparkSession => Unit) = {
 
-    implicit val spark = if (SPARK_DEPLOYMENT_MODE == "cluster") SparkSession.builder().appName("idbr enterprise assembler").getOrCreate()
-    else SparkSession.builder().master("local[4]").appName("idbr enterprise assembler").getOrCreate()
+    implicit val spark = SparkSession.builder().appName("idbr local unit assembler").getOrCreate()
 
     doWithinSparkSession(spark)
 
