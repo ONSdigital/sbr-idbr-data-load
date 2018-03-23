@@ -52,7 +52,6 @@ object Configs{
    lazy val HBASE_ENTERPRISE_TABLE_NAMESPACE = conf.getStrings("hbase.table.enterprise.namespace").head
    lazy val HBASE_ENTERPRISE_COLUMN_FAMILY = conf.getStrings("hbase.table.enterprise.column.family").head
    lazy val ENTERPRISE_DATA_TIMEPERIOD = conf.getStrings("enterprise.data.timeperiod").head
-   lazy val SPARK_DEPLOYMENT_MODE = conf.getStrings("spark.deployment.mode").head
 
   def updateConf(args: Array[String]) = {
 
@@ -70,7 +69,6 @@ object Configs{
     Try(args(8)).map(conf.set("hbase.zookeeper.quorum", _)).getOrElse(Unit)
     Try(args(9)).map(conf.set("hbase.zookeeper.property.clientPort", _)).getOrElse(Unit)
     Try(args(10)).map(conf.set("enterprise.data.timeperiod", _)).getOrElse(Unit)
-    Try(args(11)).map(conf.set("spark.deployment.mode", _)).getOrElse(Unit)
 
   }
 
