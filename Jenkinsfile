@@ -5,7 +5,7 @@ pipeline {
     environment {
         RELEASE_TYPE = "PATCH"
 
-        BRANCH_DEV = "REG-135"
+        BRANCH_DEV = "REG-22"
         BRANCH_TEST = "release"
         BRANCH_PROD = "master"
 
