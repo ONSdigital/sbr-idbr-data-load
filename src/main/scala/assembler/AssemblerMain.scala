@@ -9,8 +9,8 @@ object AssemblerMain extends EnterpriseAssemblerService {
 
   def main(args: Array[String]) {
 
-     updateConf(args)
-     loadFromParquet
+    updateConf(args)
+     loadFromCsv
      loadFromHFile
 
    }

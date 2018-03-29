@@ -7,6 +7,8 @@ package dao.csv
 import org.apache.spark.sql.SparkSession
 import org.slf4j.LoggerFactory
 import global.Configs
+import dao.parquet.ParquetDAO
+
 
 object CsvDAO {
 
@@ -16,6 +18,7 @@ object CsvDAO {
   def csvToParquet(implicit spark:SparkSession) {
     val leuToEnt = spark.read.option("header","true").csv(PATH_TO_CSV)
     leuToEnt.write.mode("overwrite").parquet(PATH_TO_PARQUET)
+    ParquetDAO.parquetToHFile(spark)
   }
 
 }
