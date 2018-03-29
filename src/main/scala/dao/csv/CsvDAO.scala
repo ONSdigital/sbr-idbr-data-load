@@ -8,6 +8,7 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 import org.slf4j.LoggerFactory
 import global.Configs
+import dao.parquet.ParquetDAO
 
 object CsvDAO {
 
@@ -20,6 +21,7 @@ object CsvDAO {
     val leuToEntNoDuplicates = leuToEnt.drop("ubrn").dropDuplicates(Array("entref"))
     val outputData = leuToEntNoDuplicates.join(groupedData, col("entref") === col("entref2")).drop("entref2")
     outputData.write.mode("overwrite").parquet(PATH_TO_PARQUET)
+    ParquetDAO.parquetToHFile(spark)
   }
 
 }

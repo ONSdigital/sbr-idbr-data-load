@@ -11,10 +11,6 @@ import spark.SparkSessionManager
   */
 trait EnterpriseAssemblerService extends HBaseConnectionManager with SparkSessionManager{
 
-  def loadFromParquet{
-    withSpark{ implicit SparkSession => ParquetDAO.parquetToHFile }
-  }
-
   def loadFromCsv{
     withSpark{ implicit SparkSession => CsvDAO.csvToParquet}
   }
