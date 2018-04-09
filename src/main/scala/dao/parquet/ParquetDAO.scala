@@ -19,17 +19,26 @@ object ParquetDAO extends WithConvertionHelper{
 
   def parquetToHFile(spark:SparkSession){
 
-    val parquetRDD = spark.read.parquet(PATH_TO_PARQUET).rdd.map(toRecords).cache()
+    val entRDD = spark.read.option("header","true").csv(PATH_TO_ENT_HFILE).rdd.map(toEnterprise).cache
+    val louRDD = spark.read.option("header","true").csv(PATH_TO_LU_CSV).rdd.map(toLocalUnit).cache
 
-    parquetRDD.flatMap(_.links).sortBy(t => s"${t._2.key}${t._2.qualifier}")
+    entRDD.flatMap(_.links).sortBy(t => s"${t._2.key}${t._2.qualifier}")
       .map(rec => (new ImmutableBytesWritable(rec._1.getBytes()), rec._2.toKeyValue))
-          .saveAsNewAPIHadoopFile(PATH_TO_LINKS_HFILE,classOf[ImmutableBytesWritable],classOf[KeyValue],classOf[HFileOutputFormat2],Configs.conf)
+          .saveAsNewAPIHadoopFile(PATH_TO_LINKS_ENT_HFILE,classOf[ImmutableBytesWritable],classOf[KeyValue],classOf[HFileOutputFormat2],Configs.conf)
 
-    parquetRDD.flatMap(_.enterprises).sortBy(t => s"${t._2.key}${t._2.qualifier}")
+    entRDD.flatMap(_.enterprises).sortBy(t => s"${t._2.key}${t._2.qualifier}")
       .map(rec => (new ImmutableBytesWritable(rec._1.getBytes()), rec._2.toKeyValue))
-          .saveAsNewAPIHadoopFile(PATH_TO_ENTERPRISE_HFILE,classOf[ImmutableBytesWritable],classOf[KeyValue],classOf[HFileOutputFormat2],Configs.conf)
+          .saveAsNewAPIHadoopFile(PATH_TO_ENT_HFILE,classOf[ImmutableBytesWritable],classOf[KeyValue],classOf[HFileOutputFormat2],Configs.conf)
 
-    parquetRDD.unpersist()
+    louRDD.flatMap(_.links).sortBy(t => s"${t._2.key}${t._2.qualifier}")
+      .map(rec => (new ImmutableBytesWritable(rec._1.getBytes()), rec._2.toKeyValue))
+      .saveAsNewAPIHadoopFile(PATH_TO_LINKS_LOU_HFILE,classOf[ImmutableBytesWritable],classOf[KeyValue],classOf[HFileOutputFormat2],Configs.conf)
 
+    louRDD.flatMap(_.enterprises).sortBy(t => s"${t._2.key}${t._2.qualifier}")
+      .map(rec => (new ImmutableBytesWritable(rec._1.getBytes()), rec._2.toKeyValue))
+      .saveAsNewAPIHadoopFile(PATH_TO_LOU_HFILE,classOf[ImmutableBytesWritable],classOf[KeyValue],classOf[HFileOutputFormat2],Configs.conf)
+
+    entRDD.unpersist()
+    louRDD.unpersist()
   }
 }
