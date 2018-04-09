@@ -19,26 +19,26 @@ trait WithConvertionHelper {
     val parentPrefix = "p_"
 
   def toRecords(row:Row): Tables = {
-    val lou = getLou(row)
+    val lurn = getLurn(row)
     val ern = getErn(row)
-    val idbrref = getIdbrRef(row)
+    val entref = getEntref(row)
     val luref = getLuRef(row)
-    Tables(rowToLocalUnit(row,lou,luref,ern,idbrref),rowToLinks(row,ern))
+    Tables(rowToLocalUnit(row,lurn,luref,ern,entref),rowToLinks(row,ern))
   }
 
-  private def rowToLocalUnit(row:Row,lou:String,luref:String,ern:String,idbrref:String): Seq[(String, RowObject)] = Seq(createLocalUnitRecord(ern,lou,"lurn",lou), createLocalUnitRecord(ern,lou,"luref",luref),
-    createLocalUnitRecord(ern,lou,"ern",ern), createLocalUnitRecord(ern,lou,"idbrref",idbrref))++
+  private def rowToLocalUnit(row:Row,lurn:String,luref:String,ern:String,entref:String): Seq[(String, RowObject)] = Seq(createLocalUnitRecord(ern,lurn,"lurn",lurn), createLocalUnitRecord(ern,lurn,"luref",luref),
+    createLocalUnitRecord(ern,lurn,"ern",ern), createLocalUnitRecord(ern,lurn,"entref",entref))++
         Seq(
-          row.getString("name").map(bn  => createLocalUnitRecord(ern,lou,"name",bn)),
-          row.getString("tradstyle").map(pc => createLocalUnitRecord(ern,lou,"tradingstyle",pc)),
-          row.getString("address1").map(a1 => createLocalUnitRecord(ern,lou,"address1",a1)),
-          row.getString("address2").map(a2 => createLocalUnitRecord(ern,lou,"address2",a2)),
-          row.getString("address3").map(a3 => createLocalUnitRecord(ern,lou,"address3",a3)),
-          row.getString("address4").map(a4 => createLocalUnitRecord(ern,lou,"address4",a4)),
-          row.getString("address5").map(a5 => createLocalUnitRecord(ern,lou,"address5",a5)),
-          row.getString("postcode").map(pc => createLocalUnitRecord(ern,lou,"postcode",pc)),
-          row.getString("sic07").map(ls => createLocalUnitRecord(ern,lou,"sic07",ls)),
-          row.getString("employees").map(emp => createLocalUnitRecord(ern,lou,"employees",emp))
+          row.getString("name").map(bn  => createLocalUnitRecord(ern,lurn,"name",bn)),
+          row.getString("tradstyle").map(pc => createLocalUnitRecord(ern,lurn,"tradingstyle",pc)),
+          row.getString("address1").map(a1 => createLocalUnitRecord(ern,lurn,"address1",a1)),
+          row.getString("address2").map(a2 => createLocalUnitRecord(ern,lurn,"address2",a2)),
+          row.getString("address3").map(a3 => createLocalUnitRecord(ern,lurn,"address3",a3)),
+          row.getString("address4").map(a4 => createLocalUnitRecord(ern,lurn,"address4",a4)),
+          row.getString("address5").map(a5 => createLocalUnitRecord(ern,lurn,"address5",a5)),
+          row.getString("postcode").map(pc => createLocalUnitRecord(ern,lurn,"postcode",pc)),
+          row.getString("sic07").map(ls => createLocalUnitRecord(ern,lurn,"sic07",ls)),
+          row.getString("employees").map(emp => createLocalUnitRecord(ern,lurn,"employees",emp))
 
         ).collect{case Some(v) => v}
 
@@ -59,13 +59,13 @@ trait WithConvertionHelper {
 
   private def createRecord(key:String,columnFamily:String, column:String, value:String) = key -> RowObject(key,columnFamily,column,value)
 
-  private def getLou(row:Row) = row.getString("lou").map(_.toString).getOrElse(throw new IllegalArgumentException("lou must be present"))
+  private def getLurn(row:Row) = row.getString("lou").map(_.toString).getOrElse(throw new IllegalArgumentException("lurn must be present"))
 
   private def getLuRef(row:Row) = row.getString("luref").map(_.toString).getOrElse(throw new IllegalArgumentException("luref must be present"))
 
   private def getErn(row:Row) = row.getString("ern").map(_.toString).getOrElse(throw new IllegalArgumentException("ern must be present"))
 
-  private def getIdbrRef(row:Row) = row.getString("entref").map(_.toString).getOrElse(throw new IllegalArgumentException("entref must be present"))
+  private def getEntref(row:Row) = row.getString("entref").map(_.toString).getOrElse(throw new IllegalArgumentException("entref must be present"))
 
   private def generateEntKey(ern:String) = s"${ern.reverse}~$period"
 
