@@ -20,7 +20,7 @@ object ParquetDAO extends WithConvertionHelper{
   def parquetToHFile(spark:SparkSession){
 
     val entRDD = spark.read.option("header","true").csv(PATH_TO_ENT_HFILE).rdd.map(toEnterprise).cache
-    val louRDD = spark.read.option("header","true").csv(PATH_TO_LU_CSV).rdd.map(toLocalUnit).cache
+    val louRDD = spark.read.option("header","true").csv(PATH_TO_LOU_HFILE).rdd.map(toLocalUnit).cache
 
     entRDD.flatMap(_.links).sortBy(t => s"${t._2.key}${t._2.qualifier}")
       .map(rec => (new ImmutableBytesWritable(rec._1.getBytes()), rec._2.toKeyValue))
