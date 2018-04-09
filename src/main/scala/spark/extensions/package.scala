@@ -23,6 +23,14 @@ package object SQL {
 
     def isNull(field:String) = row.isNullAt(row.fieldIndex(field))
 
+    def getCalcValue(fieldName:String): Option[String] = {
+      val v = isNull(fieldName)
+      v match{
+        case true  => Some("")
+        case false => Some(row.getAs(fieldName).toString)
+      }
+    }
+
     def getValue[T](
                    fieldName:String,
                    eval:Option[T => Boolean] = None

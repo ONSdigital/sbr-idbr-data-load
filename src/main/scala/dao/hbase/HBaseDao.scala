@@ -28,13 +28,17 @@ object HBaseDao {
     val regionLocator = connection.getRegionLocator(table.getName)
     bulkLoader.doBulkLoad(new Path(PATH_TO_LINKS_LOU_HFILE), admin,table,regionLocator)
     bulkLoader.doBulkLoad(new Path(PATH_TO_LINKS_ENT_HFILE), admin,table,regionLocator)
-
   }
 
   def loadEnterprisesHFile(implicit connection:Connection) = wrapTransaction(HBASE_ENTERPRISE_TABLE_NAME,Try(conf.getStrings("hbase.table.enterprise.namespace").head).toOption){ (table, admin) =>
     val bulkLoader = new LoadIncrementalHFiles(connection.getConfiguration)
     val regionLocator = connection.getRegionLocator(table.getName)
     bulkLoader.doBulkLoad(new Path(PATH_TO_ENT_HFILE), admin,table,regionLocator)
+  }
+
+  def loadLouHFile(implicit connection:Connection) = wrapTransaction(HBASE_LOU_TABLE_NAME,Try(conf.getStrings("hbase.table.enterprise.namespace").head).toOption){ (table, admin) =>
+    val bulkLoader = new LoadIncrementalHFiles(connection.getConfiguration)
+    val regionLocator = connection.getRegionLocator(table.getName)
     bulkLoader.doBulkLoad(new Path(PATH_TO_LOU_HFILE), admin,table,regionLocator)
   }
 

@@ -39,15 +39,15 @@ trait WithConvertionHelper {
     createLocalUnitRecord(ern,lurn,"ern",ern), createLocalUnitRecord(ern,lurn,"entref",entref))++
         Seq(
           row.getString("name").map(bn  => createLocalUnitRecord(ern,lurn,"name",bn)),
-          row.getString("tradstyle").map(pc => createLocalUnitRecord(ern,lurn,"tradingstyle",pc)),
+          row.getString("tradstyle").map(tradingStyle => createLocalUnitRecord(ern,lurn,"tradingstyle",tradingStyle)),
           row.getString("address1").map(a1 => createLocalUnitRecord(ern,lurn,"address1",a1)),
           row.getString("address2").map(a2 => createLocalUnitRecord(ern,lurn,"address2",a2)),
           row.getString("address3").map(a3 => createLocalUnitRecord(ern,lurn,"address3",a3)),
           row.getString("address4").map(a4 => createLocalUnitRecord(ern,lurn,"address4",a4)),
           row.getString("address5").map(a5 => createLocalUnitRecord(ern,lurn,"address5",a5)),
           row.getString("postcode").map(pc => createLocalUnitRecord(ern,lurn,"postcode",pc)),
-          row.getString("sic07").map(ls => createLocalUnitRecord(ern,lurn,"sic07",ls)),
-          row.getString("employees").map(emp => createLocalUnitRecord(ern,lurn,"employees",emp))
+          row.getCalcValue("sic07").map(sic => createLocalUnitRecord(ern,lurn,"sic07",sic)),
+          row.getCalcValue("employees").map(employees => createLocalUnitRecord(ern,lurn,"employees",employees))
         ).collect{case Some(v) => v}
 
   private def rowToEnterprise(row:Row,ern:String,entref:String): Seq[(String, RowObject)] = Seq(createEnterpriseRecord(ern,"ern",ern), createEnterpriseRecord(ern,"entref",entref))++

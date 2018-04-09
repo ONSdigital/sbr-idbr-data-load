@@ -16,7 +16,7 @@ object CsvDAO {
   val logger = LoggerFactory.getLogger(getClass)
 
   def csvToParquet(implicit spark:SparkSession) {
-    val leuToEnt = spark.read.option("header","true").csv(PATH_TO_LOU_HFILE)
+    val leuToEnt = spark.read.option("header","true").csv(PATH_TO_LOU_CSV)
     leuToEnt.write.mode("overwrite").parquet(PATH_TO_PARQUET)
     ParquetDAO.parquetToHFile(spark)
   }
