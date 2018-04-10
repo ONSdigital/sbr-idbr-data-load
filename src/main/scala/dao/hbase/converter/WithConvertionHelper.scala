@@ -20,17 +20,17 @@ trait WithConvertionHelper {
     val parentPrefix = "p_"
 
   def toLocalUnit(row:Row): Tables = {
-    val lurn = getLurn(row)
-    val ern = getErn(row)
-    val entref = getEntref(row)
-    val luref = getLuRef(row)
+    val lurn = getID(row,"lou")
+    val ern = getID(row,"ern")
+    val entref = getID(row,"entref")
+    val luref = getID(row,"luref")
     val keyStr = generateLinkKey(ern,enterprise)
     Tables(rowToLocalUnit(row,lurn,luref,ern,entref),rowToLocalUnitLinks(row,keyStr,ern))
   }
 
   def toEnterprise(row:Row): Tables = {
-    val ern = getErn(row)
-    val entref = getEntref(row)
+    val ern = getID(row,"ern")
+    val entref = getID(row,"entref")
     val keyStr = generateLinkKey(ern,enterprise)
     Tables(rowToEnterprise(row,ern,entref), rowToLegalUnitLinks(row,keyStr,ern))
   }
@@ -75,20 +75,12 @@ trait WithConvertionHelper {
 
   private def createRecord(key:String,columnFamily:String, column:String, value:String) = key -> RowObject(key,columnFamily,column,value)
 
-  private def getLurn(row:Row) = row.getString("lou").map(_.toString).getOrElse(throw new IllegalArgumentException("lurn must be present"))
-
-  private def getLuRef(row:Row) = row.getString("luref").map(_.toString).getOrElse(throw new IllegalArgumentException("luref must be present"))
-
-  private def getErn(row:Row) = row.getString("ern").map(_.toString).getOrElse(throw new IllegalArgumentException("ern must be present"))
-
-  private def getEntref(row:Row) = row.getString("entref").map(_.toString).getOrElse(throw new IllegalArgumentException("entref must be present"))
+  private def getID(row:Row,id:String) = row.getString(id).map(_.toString).getOrElse(throw new IllegalArgumentException(s"$id must be present"))
 
   private def generateEntKey(ern:String) = s"${ern.reverse}~$period"
 
   private def generateLouKey(ern:String, lou:String) = s"${ern.reverse}~$period~$lou"
 
   private def generateLinkKey(id:String, suffix:String) = s"$id~$suffix~$period"
-
-
 
 }
