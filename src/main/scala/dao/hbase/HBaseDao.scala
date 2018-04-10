@@ -21,6 +21,7 @@ object HBaseDao {
   def loadHFiles(implicit connection:Connection) ={
     loadLinksHFile
     loadEnterprisesHFile
+    loadLouHFile
   }
 
   def loadLinksHFile(implicit connection:Connection) = wrapTransaction(HBASE_LINKS_TABLE_NAME, Try(conf.getStrings("hbase.table.links.namespace").head).toOption){ (table, admin) =>
