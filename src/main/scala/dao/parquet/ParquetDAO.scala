@@ -1,42 +1,26 @@
 package dao.parquet
 
-import dao.hbase.converter.WithConvertionHelper
+import dao.hbase.converter.WithConversionHelper
+import dao.hbase.HFileWriter
 import global.Configs
-import org.apache.hadoop.hbase.KeyValue
-import org.apache.hadoop.hbase.io.ImmutableBytesWritable
-import org.apache.hadoop.hbase.mapreduce.HFileOutputFormat2
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.types.{ArrayType, LongType, StringType,StructType, StructField, IntegerType}
 import org.slf4j.LoggerFactory
 
-
-
-object ParquetDAO extends WithConvertionHelper{
+object ParquetDAO extends WithConversionHelper with  HFileWriter {
 
   import Configs._
 
   val logger = LoggerFactory.getLogger(getClass)
 
-  def parquetToHFile(spark:SparkSession){
+  def parquetToHFile(implicit spark: SparkSession) {
 
-    val entRDD = spark.read.option("header","true").csv(PATH_TO_ENT_CSV).rdd.map(toEnterprise).cache
-    val louRDD = spark.read.option("header","true").csv(PATH_TO_LOU_CSV).rdd.map(toLocalUnit).cache
+    val entRDD = spark.read.option("header", "true").csv(PATH_TO_ENT_CSV).rdd.map(row => toRecord(row, "ent")).cache
+    val louRDD = spark.read.option("header", "true").csv(PATH_TO_LOU_CSV).rdd.map(row => toRecord(row, "lou")).cache
 
-    entRDD.flatMap(_.links).sortBy(t => s"${t._2.key}${t._2.qualifier}")
-      .map(rec => (new ImmutableBytesWritable(rec._1.getBytes()), rec._2.toKeyValue))
-          .saveAsNewAPIHadoopFile(PATH_TO_LINKS_ENT_HFILE,classOf[ImmutableBytesWritable],classOf[KeyValue],classOf[HFileOutputFormat2],Configs.conf)
-
-    entRDD.flatMap(_.enterprises).sortBy(t => s"${t._2.key}${t._2.qualifier}")
-      .map(rec => (new ImmutableBytesWritable(rec._1.getBytes()), rec._2.toKeyValue))
-          .saveAsNewAPIHadoopFile(PATH_TO_ENT_HFILE,classOf[ImmutableBytesWritable],classOf[KeyValue],classOf[HFileOutputFormat2],Configs.conf)
-
-    louRDD.flatMap(_.links).sortBy(t => s"${t._2.key}${t._2.qualifier}")
-      .map(rec => (new ImmutableBytesWritable(rec._1.getBytes()), rec._2.toKeyValue))
-      .saveAsNewAPIHadoopFile(PATH_TO_LINKS_LOU_HFILE,classOf[ImmutableBytesWritable],classOf[KeyValue],classOf[HFileOutputFormat2],Configs.conf)
-
-    louRDD.flatMap(_.enterprises).sortBy(t => s"${t._2.key}${t._2.qualifier}")
-      .map(rec => (new ImmutableBytesWritable(rec._1.getBytes()), rec._2.toKeyValue))
-      .saveAsNewAPIHadoopFile(PATH_TO_LOU_HFILE,classOf[ImmutableBytesWritable],classOf[KeyValue],classOf[HFileOutputFormat2],Configs.conf)
+    toHFile(entRDD, PATH_TO_ENT_HFILE)
+    toHFile(louRDD, PATH_TO_LOU_HFILE)
+    toLinksHFile(entRDD, PATH_TO_LINKS_ENT_HFILE)
+    toLinksHFile(louRDD, PATH_TO_LINKS_LOU_HFILE)
 
     entRDD.unpersist()
     louRDD.unpersist()

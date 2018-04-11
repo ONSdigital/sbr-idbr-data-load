@@ -47,7 +47,6 @@ object Configs{
   Try{config.getString("hbase.table.lou.namespace")}.map(conf.set("hbase.table.lou.namespace",_)).getOrElse(conf.set("hbase.table.lou.namespace","ons"))
   Try{config.getString(louHfile)}.map(conf.set(louHfile,_)).getOrElse(conf.set(louHfile,s"$dataDir/lou/hfile"))
 
-  Try{config.getString("files.parquet")}.map(conf.set("files.parquet",_)).getOrElse(conf.set("files.parquet",s"$dataDir/test.parquet"))
   Try{config.getString("files.lou.csv")}.map(conf.set("files.lou.csv",_)).getOrElse(conf.set("files.lou.csv",s"$dataDir/sampleLocal.csv"))
   Try{config.getString("files.ent.csv")}.map(conf.set("files.ent.csv",_)).getOrElse(conf.set("files.ent.csv",s"$dataDir/idbr.csv"))
 
@@ -71,7 +70,6 @@ object Configs{
   lazy val HBASE_LOU_COLUMN_FAMILY = conf.getStrings("hbase.table.lou.column.family").head
   lazy val PATH_TO_LOU_HFILE =  conf.getStrings(louHfile).head
 
-  lazy val PATH_TO_PARQUET = conf.getStrings("files.parquet").head
   lazy val PATH_TO_LOU_CSV  = conf.getStrings("files.lou.csv").head
   lazy val PATH_TO_ENT_CSV = conf.getStrings("files.ent.csv").head
 
@@ -92,14 +90,11 @@ object Configs{
     Try(args(8)).map(conf.set("hbase.table.lou.namespace", _)).getOrElse(Unit)
     Try(args(9)).map(conf.set(louHfile, _)).getOrElse(Unit)
 
-    Try(args(10)).map(conf.set("files.parquet", _)).getOrElse(Unit)
-    Try(args(11)).map(conf.set("files.lou.csv", _)).getOrElse(Unit)
-    Try(args(12)).map(conf.set("files.ent.csv", _)).getOrElse(Unit)
+    Try(args(10)).map(conf.set("files.lou.csv", _)).getOrElse(Unit)
+    Try(args(11)).map(conf.set("files.ent.csv", _)).getOrElse(Unit)
 
-    Try(args(13)).map(conf.set("hbase.zookeeper.quorum", _)).getOrElse(Unit)
-    Try(args(14)).map(conf.set("hbase.zookeeper.property.clientPort", _)).getOrElse(Unit)
-    Try(args(15)).map(conf.set("enterprise.data.timeperiod", _)).getOrElse(Unit)
-
+    Try(args(12)).map(conf.set("hbase.zookeeper.quorum", _)).getOrElse(Unit)
+    Try(args(13)).map(conf.set("hbase.zookeeper.property.clientPort", _)).getOrElse(Unit)
+    Try(args(14)).map(conf.set("enterprise.data.timeperiod", _)).getOrElse(Unit)
   }
-
 }

@@ -1,5 +1,5 @@
 #!groovy
-@Library('jenkins-pipeline-shared@develop') _
+@Library('jenkins-pipeline-shared@master') _
 
 pipeline {
     environment {
@@ -13,8 +13,6 @@ pipeline {
         DEPLOY_TEST = "test"
         DEPLOY_PROD = "prod"
 
-        CF_CREDS = "sbr-api-dev-secret-key"
-
         GIT_TYPE = "Github"
         GIT_CREDS = "github-sbr-user"
         GITLAB_CREDS = "sbr-gitlab-id"
@@ -23,7 +21,6 @@ pipeline {
         TEAM = "sbr"
         MODULE_NAME = "sbr-local-unit-data-load"
 
-        // hbase config
         NAMESPACE = "sbr_dev_db"
     }
     options {
@@ -55,6 +52,7 @@ pipeline {
                 anyOf {
                     branch BRANCH_DEV
                     branch BRANCH_TEST
+                    branch BRANCH_PROD
                 }
             }
             steps {
