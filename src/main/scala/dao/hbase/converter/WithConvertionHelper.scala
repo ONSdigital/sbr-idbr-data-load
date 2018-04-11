@@ -38,8 +38,8 @@ trait WithConvertionHelper {
   private def rowToLocalUnit(row:Row,lurn:String,luref:String,ern:String,entref:String): Seq[(String, RowObject)] = Seq(createLocalUnitRecord(ern,lurn,"lurn",lurn), createLocalUnitRecord(ern,lurn,"luref",luref),
     createLocalUnitRecord(ern,lurn,"ern",ern), createLocalUnitRecord(ern,lurn,"entref",entref))++
         Seq(
-          row.getString("name").map(bn  => createLocalUnitRecord(ern,lurn,"name",bn)),
-          row.getString("tradstyle").map(tradingStyle => createLocalUnitRecord(ern,lurn,"tradingstyle",tradingStyle)),
+          row.getString("name").map(bn  => createLocalUnitRecord(ern,lurn,"name",bn.trim)),
+          row.getString("tradstyle").map(tradingStyle => createLocalUnitRecord(ern,lurn,"tradingstyle",tradingStyle.trim)),
           row.getString("address1").map(a1 => createLocalUnitRecord(ern,lurn,"address1",a1)),
           row.getString("address2").map(a2 => createLocalUnitRecord(ern,lurn,"address2",a2)),
           row.getString("address3").map(a3 => createLocalUnitRecord(ern,lurn,"address3",a3)),
