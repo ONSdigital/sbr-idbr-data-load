@@ -58,7 +58,7 @@ object Configs{
   lazy val HBASE_ENTERPRISE_TABLE_NAME = conf.getStrings("hbase.table.enterprise.name").head
   lazy val HBASE_ENTERPRISE_TABLE_NAMESPACE = conf.getStrings("hbase.table.enterprise.namespace").head
   lazy val HBASE_ENTERPRISE_COLUMN_FAMILY = conf.getStrings("hbase.table.enterprise.column.family").head
-  lazy val PATH_TO_ENT_HFILE =  conf.getStrings("files.ent.hfile").head
+  lazy val PATH_TO_ENT_HFILE =  conf.getStrings("files.enterprise.hfile").head
 
   lazy val HBASE_LOU_TABLE_NAME = conf.getStrings("hbase.table.lou.name").head
   lazy val HBASE_LOU_TABLE_NAMESPACE = conf.getStrings("hbase.table.lou.namespace").head
