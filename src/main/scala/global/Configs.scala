@@ -34,7 +34,7 @@ object Configs{
   Try{config.getString("hbase.table.enterprise.name")}.map(conf.set("hbase.table.enterprise.name",_)).getOrElse(conf.set("hbase.table.enterprise.name","ENT"))
   Try{config.getString("hbase.table.enterprise.column.family")}.map(conf.set("hbase.table.enterprise.column.family",_)).getOrElse(conf.set("hbase.table.enterprise.column.family","d"))
   Try{config.getString("hbase.table.enterprise.namespace")}.map(conf.set("hbase.table.enterprise.namespace",_)).getOrElse(conf.set("hbase.table.enterprise.namespace","ons"))
-  Try{config.getString("files.ent.hfile")}.map(conf.set("files.ent.hfile",_)).getOrElse(conf.set("files.ent.hfile","src/main/resources/data/enterprise/hfile"))
+  Try{config.getString("files.enterprise.hfile")}.map(conf.set("files.enterprise.hfile",_)).getOrElse(conf.set("files.enterprise.hfile","src/main/resources/data/enterprise/hfile"))
 
   Try{config.getString("hbase.table.lou.name")}.map(conf.set("hbase.table.lou.name",_)).getOrElse(conf.set("hbase.table.lou.name","LOU"))
   Try{config.getString("hbase.table.lou.column.family")}.map(conf.set("hbase.table.lou.column.family",_)).getOrElse(conf.set("hbase.table.lou.column.family","d"))
