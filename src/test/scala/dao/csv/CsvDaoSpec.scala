@@ -14,13 +14,13 @@ class CsvDaoSpec extends WordSpecLike with Matchers with BeforeAndAfterAll with 
   import global.Configs._
 
 
-  val entLinkHFilePath = "src/test/resources/data/links/enterprise"
-  val entHFilePath = "src/test/resources/data/enterprise"
-  val entCsvFilePath = "src/test/resources/data/idbr.csv"
+  private val entLinkHFilePath = "src/test/resources/data/links/enterprise"
+  private val entHFilePath = "src/test/resources/data/enterprise"
+  private val entCsvFilePath = "src/test/resources/data/idbr.csv"
 
-  val louLinkHFilePath = "src/test/resources/data/links/lou"
-  val louHFilePath = "src/test/resources/data/lou"
-  val louCsvFilePath = "src/test/resources/data/sampleLocal.csv"
+  private val louLinkHFilePath = "src/test/resources/data/links/lou"
+  private val louHFilePath = "src/test/resources/data/lou"
+  private val louCsvFilePath = "src/test/resources/data/sampleLocal.csv"
 
   override def beforeAll() = {
 
@@ -46,8 +46,8 @@ class CsvDaoSpec extends WordSpecLike with Matchers with BeforeAndAfterAll with 
 
       CsvDAO.csvToHFile
 
-      val actual: List[Enterprise] = readEntitiesFromHFile[Enterprise](entHFilePath).collect.toList.sortBy(_.ern)
-      val expected: List[Enterprise] = testEnterprise(actual).sortBy(_.ern).toList
+      private val actual: List[Enterprise] = readEntitiesFromHFile[Enterprise](entHFilePath).collect.toList.sortBy(_.ern)
+      private val expected: List[Enterprise] = testEnterprise(actual).sortBy(_.ern).toList
       actual shouldBe expected
 
       spark.close()
@@ -61,8 +61,8 @@ class CsvDaoSpec extends WordSpecLike with Matchers with BeforeAndAfterAll with 
 
       CsvDAO.csvToHFile
 
-      val actual: List[LocalUnit] = readEntitiesFromHFile[LocalUnit](louHFilePath).collect.toList.sortBy(_.lurn)
-      val expected: List[LocalUnit] = testLocalUnit(actual).sortBy(_.lurn).toList
+      private val actual: List[LocalUnit] = readEntitiesFromHFile[LocalUnit](louHFilePath).collect.toList.sortBy(_.lurn)
+      private val expected: List[LocalUnit] = testLocalUnit(actual).sortBy(_.lurn).toList
       actual shouldBe expected
 
       spark.close()
