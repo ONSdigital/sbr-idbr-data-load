@@ -39,7 +39,7 @@ start-hbase.sh
 Now that HBase has started, we can open the shell and create the namespace and tables.
 ```sbtshell
 hbase shell
-create_namespace 'ons'
+create_namespace 'sbr_dev_db'
 create 'ons:ENTERPRISE', 'd'
 create 'ons:LINKS', 'l'
 ```
@@ -53,8 +53,8 @@ The application should have built, created some Hfiles and used them to populate
 
 You can then query the HBase tables to see if they populated correctly, using these commands in the HBase shell:
 ```sbtshell
-scan "ons:LINKS", {LIMIT => 200}
-scan "ons:ENTERPRISE", {LIMIT => 200}
+scan "sbr_dev_db:links", {LIMIT => 200}
+scan "sbr_dev_db:enterprise", {LIMIT => 200}
 ```
 
 ### License

@@ -6,8 +6,6 @@ import org.apache.hadoop.hbase.io.ImmutableBytesWritable
 import org.apache.hadoop.hbase.mapreduce.{HFileOutputFormat2, LoadIncrementalHFiles}
 import org.apache.hadoop.hbase.{KeyValue, TableName}
 import org.apache.hadoop.mapreduce.Job
-import org.slf4j.LoggerFactory
-
 import scala.util.Try
 
 /**
@@ -15,8 +13,6 @@ import scala.util.Try
   */
 object HBaseDao {
   import global.Configs._
-
-  val logger = LoggerFactory.getLogger(getClass)
 
   def loadHFiles(implicit connection:Connection) ={
     loadLinksHFile

@@ -20,6 +20,7 @@ object Configs{
   val louHfile = "files.lou.hfile"
   val louLinks = "files.links.lou.hfile"
   val dataDir = "src/main/resources/data"
+  val nameSpace = "sbr_dev_db"
 
   val conf: Configuration = HBaseConfiguration.create()
   Try{config.getString("hadoop.security.authentication")}.map(conf.addResource).getOrElse(conf.set("hadoop.security.authentication","kerberos"))
@@ -31,20 +32,20 @@ object Configs{
     conf.setInt("hbase.mapreduce.bulkload.max.hfiles.perRegion.perFamily", config.getInt("hbase.files.per.region"))
   }
 
-  Try{config.getString("hbase.table.links.name")}.map(conf.set("hbase.table.links.name",_)).getOrElse(conf.set("hbase.table.links.name","LINKS"))
+  Try{config.getString("hbase.table.links.name")}.map(conf.set("hbase.table.links.name",_)).getOrElse(conf.set("hbase.table.links.name","links"))
   Try{config.getString("hbase.table.links.column.family")}.map(conf.set("hbase.table.links.column.family",_)).getOrElse(conf.set("hbase.table.links.column.family","l"))
-  Try{config.getString("hbase.table.links.namespace")}.map(conf.set("hbase.table.links.namespace",_)).getOrElse(conf.set("hbase.table.links.namespace","ons"))
+  Try{config.getString("hbase.table.links.namespace")}.map(conf.set("hbase.table.links.namespace",_)).getOrElse(conf.set("hbase.table.links.namespace",nameSpace))
   Try{config.getString(entLinks)}.map(conf.set(entLinks,_)).getOrElse(conf.set(entLinks,s"$dataDir/links/ent/hfile"))
   Try{config.getString(louLinks)}.map(conf.set(louLinks,_)).getOrElse(conf.set(louLinks,s"$dataDir/links/lou/hfile"))
 
-  Try{config.getString("hbase.table.enterprise.name")}.map(conf.set("hbase.table.enterprise.name",_)).getOrElse(conf.set("hbase.table.enterprise.name","ENT"))
+  Try{config.getString("hbase.table.enterprise.name")}.map(conf.set("hbase.table.enterprise.name",_)).getOrElse(conf.set("hbase.table.enterprise.name","enterprise"))
   Try{config.getString("hbase.table.enterprise.column.family")}.map(conf.set("hbase.table.enterprise.column.family",_)).getOrElse(conf.set("hbase.table.enterprise.column.family","d"))
-  Try{config.getString("hbase.table.enterprise.namespace")}.map(conf.set("hbase.table.enterprise.namespace",_)).getOrElse(conf.set("hbase.table.enterprise.namespace","ons"))
+  Try{config.getString("hbase.table.enterprise.namespace")}.map(conf.set("hbase.table.enterprise.namespace",_)).getOrElse(conf.set("hbase.table.enterprise.namespace",nameSpace))
   Try{config.getString(entHfile)}.map(conf.set(entHfile,_)).getOrElse(conf.set(entHfile,s"$dataDir/enterprise/hfile"))
 
-  Try{config.getString("hbase.table.lou.name")}.map(conf.set("hbase.table.lou.name",_)).getOrElse(conf.set("hbase.table.lou.name","LOU"))
+  Try{config.getString("hbase.table.lou.name")}.map(conf.set("hbase.table.lou.name",_)).getOrElse(conf.set("hbase.table.lou.name","lou"))
   Try{config.getString("hbase.table.lou.column.family")}.map(conf.set("hbase.table.lou.column.family",_)).getOrElse(conf.set("hbase.table.lou.column.family","d"))
-  Try{config.getString("hbase.table.lou.namespace")}.map(conf.set("hbase.table.lou.namespace",_)).getOrElse(conf.set("hbase.table.lou.namespace","ons"))
+  Try{config.getString("hbase.table.lou.namespace")}.map(conf.set("hbase.table.lou.namespace",_)).getOrElse(conf.set("hbase.table.lou.namespace",nameSpace))
   Try{config.getString(louHfile)}.map(conf.set(louHfile,_)).getOrElse(conf.set(louHfile,s"$dataDir/lou/hfile"))
 
   Try{config.getString("files.lou.csv")}.map(conf.set("files.lou.csv",_)).getOrElse(conf.set("files.lou.csv",s"$dataDir/sampleLocal.csv"))

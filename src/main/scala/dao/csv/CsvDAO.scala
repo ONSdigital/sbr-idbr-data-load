@@ -1,18 +1,15 @@
-package dao.parquet
+package dao.csv
 
 import dao.hbase.converter.WithConversionHelper
 import dao.hbase.HFileWriter
 import global.Configs
 import org.apache.spark.sql.SparkSession
-import org.slf4j.LoggerFactory
 
-object ParquetDAO extends WithConversionHelper with  HFileWriter {
+object CsvDAO extends WithConversionHelper with HFileWriter {
 
   import Configs._
 
-  val logger = LoggerFactory.getLogger(getClass)
-
-  def parquetToHFile(implicit spark: SparkSession) {
+  def csvToHFile(implicit spark: SparkSession) {
 
     val entRDD = spark.read.option("header", "true").csv(PATH_TO_ENT_CSV).rdd.map(row => toRecord(row, "ent")).cache
     val louRDD = spark.read.option("header", "true").csv(PATH_TO_LOU_CSV).rdd.map(row => toRecord(row, "lou")).cache
