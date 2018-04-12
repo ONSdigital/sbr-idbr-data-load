@@ -46,8 +46,8 @@ class CsvDaoSpec extends WordSpecLike with Matchers with BeforeAndAfterAll with 
 
       CsvDAO.csvToHFile
 
-      private val actual: List[Enterprise] = readEntitiesFromHFile[Enterprise](entHFilePath).collect.toList.sortBy(_.ern)
-      private val expected: List[Enterprise] = testEnterprise(actual).sortBy(_.ern).toList
+      val actual: List[Enterprise] = readEntitiesFromHFile[Enterprise](entHFilePath).collect.toList.sortBy(_.ern)
+      val expected: List[Enterprise] = testEnterprise(actual).sortBy(_.ern).toList
       actual shouldBe expected
 
       spark.close()
@@ -61,8 +61,8 @@ class CsvDaoSpec extends WordSpecLike with Matchers with BeforeAndAfterAll with 
 
       CsvDAO.csvToHFile
 
-      private val actual: List[LocalUnit] = readEntitiesFromHFile[LocalUnit](louHFilePath).collect.toList.sortBy(_.lurn)
-      private val expected: List[LocalUnit] = testLocalUnit(actual).sortBy(_.lurn).toList
+      val actual: List[LocalUnit] = readEntitiesFromHFile[LocalUnit](louHFilePath).collect.toList.sortBy(_.lurn)
+      val expected: List[LocalUnit] = testLocalUnit(actual).sortBy(_.lurn).toList
       actual shouldBe expected
 
       spark.close()
