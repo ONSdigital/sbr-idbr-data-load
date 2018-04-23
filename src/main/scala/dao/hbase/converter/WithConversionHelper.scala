@@ -5,10 +5,9 @@ import global.Configs
 import model._
 import org.apache.spark.sql.Row
 import spark.extensions.SQL.SqlRowExtensions
+import Configs._
 
 trait WithConversionHelper {
-
-  import Configs._
 
   lazy val period = conf.getStrings("enterprise.data.timeperiod").head
 
