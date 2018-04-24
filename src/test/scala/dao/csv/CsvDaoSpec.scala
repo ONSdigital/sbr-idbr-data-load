@@ -4,15 +4,13 @@ import model.domain._
 import org.apache.spark.sql.SparkSession
 import org.scalatest.{BeforeAndAfterAll,BeforeAndAfterEach, Matchers, WordSpecLike}
 import spark.extensions.rdd.HBaseDataReader._
+import global.Configs._
 
 import scala.reflect.io.File
 /**
   *
   */
 class CsvDaoSpec extends WordSpecLike with Matchers with BeforeAndAfterAll with BeforeAndAfterEach with TestData{
-
-  import global.Configs._
-
 
   private val entLinkHFilePath = "src/test/resources/data/links/enterprise"
   private val entHFilePath = "src/test/resources/data/enterprise"
@@ -22,21 +20,31 @@ class CsvDaoSpec extends WordSpecLike with Matchers with BeforeAndAfterAll with 
   private val louHFilePath = "src/test/resources/data/lou"
   private val louCsvFilePath = "src/test/resources/data/lou.csv"
 
+  private val reuLinkHFilePath = "src/test/resources/data/links/reu"
+  private val reuHFilePath = "src/test/resources/data/reu"
+  private val reuCsvFilePath = "src/test/resources/data/reu.csv"
+
   override def beforeAll() = {
 
     conf.set("enterprise.data.timeperiod", "default")
 
-    updateConf(Array[String]("links", "sbr_dev_db", entLinkHFilePath, louLinkHFilePath,
-      "ent", "sbr_dev_db", entHFilePath, "lou", "sbr_dev_db", louHFilePath,
-      louCsvFilePath, entCsvFilePath, "localhost", "2181", "201802"
+    updateConf(Array[String]("links", "sbr_dev_db",
+      entLinkHFilePath, louLinkHFilePath,reuLinkHFilePath,
+      "ent", "sbr_dev_db", entHFilePath,
+      "lou", "sbr_dev_db", louHFilePath,
+      "reu", "sbr_dev_db", reuHFilePath,
+      louCsvFilePath, entCsvFilePath,reuCsvFilePath,
+      "localhost", "2181", "201802"
     ))
   }
 
   override def afterEach() = {
     File(entLinkHFilePath).deleteRecursively()
     File(louLinkHFilePath).deleteRecursively()
+    File(reuLinkHFilePath).deleteRecursively()
     File(entHFilePath).deleteRecursively()
     File(louHFilePath).deleteRecursively()
+    File(reuHFilePath).deleteRecursively()
   }
 
   "assembler" should {

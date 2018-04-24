@@ -15,6 +15,7 @@ trait WithConversionHelper {
   val localUnit = "LOU"
   val enterprise = "ENT"
   val legalUnit = "LEU"
+  val reportingUnit = "REU"
 
   val childPrefix = "c_"
   val parentPrefix = "p_"
@@ -27,9 +28,15 @@ trait WithConversionHelper {
     recordType match {
       case "ent" => Tables(rowToEnterprise(row,ern,entref), rowToLegalUnitLinks(row,keyStr,ern))
       case "lou" => {
-        val lurn = getID(row, "lou")
+        val lurn  = getID(row, "lou")
         val luref = getID(row, "luref")
-        Tables(rowToLocalUnit(row,lurn,luref,ern,entref),rowToLocalUnitLinks(row,keyStr,ern))
+        val rurn  = getID(row, "rurn")
+        Tables(rowToLocalUnit(row,lurn,luref,ern,entref),rowToLocalUnitLinks(row,keyStr,ern, rurn))
+      }
+      case "reu" => {
+        val rurn  = getID(row,"rurn")
+        val ruref = getID(row,"ruref")
+        Tables(rowToReportingUnit(row,rurn,ruref,ern,entref),rowToReportingUnitLinks(row,keyStr,ern))
       }
     }
   }
@@ -56,14 +63,25 @@ trait WithConversionHelper {
       row.getString("sic07").map(sic => createEnterpriseRecord(ern,"sic07", sic))
     ).collect{case Some(v) => v}
 
-  private def rowToLocalUnitLinks(row:Row, keyStr:String, ern:String):Seq[(String, RowObject)] = row.getString("lou").map(lou => Seq(
+  private def rowToReportingUnit(row: Row, rurn: String, ruref: String, ern: String, entref:String): Seq[(String, RowObject)] = Seq(createReportingUnitRecord(ern,rurn,"rurn",rurn), createReportingUnitRecord(ern,ruref,"ruref",ruref), createReportingUnitRecord(ern,ruref,"ern",ern), createReportingUnitRecord(ern,ruref,"entref",entref)) ++
+    Seq(
+      row.getString("name").map(bn  => createReportingUnitRecord(ern,rurn,"name",bn))
+    ).collect{case  Some(v) => v}
+
+  private def rowToLocalUnitLinks(row:Row, keyStr:String, ern:String, rurn: String):Seq[(String, RowObject)] = row.getString("lou").map(lou => Seq(
     createLinksRecord(keyStr,s"$childPrefix$lou",localUnit),
-    createLinksRecord(generateLinkKey(lou.toString,localUnit),s"$parentPrefix$enterprise",ern.toString)
+    createLinksRecord(generateLinkKey(lou.toString,localUnit),s"$parentPrefix$enterprise",ern.toString),
+    createLinksRecord(generateLinkKey(lou.toString,localUnit),s"$parentPrefix$reportingUnit",rurn.toString)
   )).getOrElse (Seq[(String, RowObject)]())
 
   private def rowToLegalUnitLinks(row:Row, keyStr:String, ern:String):Seq[(String, RowObject)] = row.getString("ubrn").map(ubrn => Seq(
     createLinksRecord(keyStr,s"$childPrefix$ubrn",legalUnit),
     createLinksRecord(generateLinkKey(ubrn.toString,legalUnit),s"$parentPrefix$enterprise",ern.toString)
+  )).getOrElse (Seq[(String, RowObject)]())
+
+  private def rowToReportingUnitLinks(row:Row, keyStr:String, ern:String):Seq[(String, RowObject)] = row.getString("ruref").map(ru => Seq(
+    createLinksRecord(keyStr,s"$childPrefix$ru",reportingUnit),
+    createLinksRecord(generateLinkKey(ru.toString,reportingUnit),s"$parentPrefix$enterprise",ern.toString)
   )).getOrElse (Seq[(String, RowObject)]())
 
   private def createLinksRecord(key:String,column:String, value:String) = createRecord(key,HBASE_LINKS_COLUMN_FAMILY,column,value)
@@ -72,6 +90,8 @@ trait WithConversionHelper {
 
   private def createLocalUnitRecord(ern:String, lou:String, column:String, value:String) = createRecord(generateLouKey(ern,lou),HBASE_ENTERPRISE_COLUMN_FAMILY,column,value)
 
+  private def createReportingUnitRecord(ern:String, ruref:String, column:String, value:String) = createRecord(generateRuKey(ern,ruref),HBASE_ENTERPRISE_COLUMN_FAMILY,column,value)
+
   private def createRecord(key:String,columnFamily:String, column:String, value:String) = key -> RowObject(key,columnFamily,column,value)
 
   private def getID(row:Row,id:String) = row.getString(id).map(_.toString).getOrElse(throw new IllegalArgumentException(s"$id must be present"))
@@ -79,6 +99,8 @@ trait WithConversionHelper {
   private def generateEntKey(ern:String) = s"${ern.reverse}~$period"
 
   private def generateLouKey(ern:String, lou:String) = s"${ern.reverse}~$period~$lou"
+
+  private def generateRuKey(ern: String, ruref: String) = s"${ern.reverse}~$period~$ruref"
 
   private def generateLinkKey(id:String, suffix:String) = s"$id~$suffix~$period"
 
