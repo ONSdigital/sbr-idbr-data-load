@@ -5,10 +5,9 @@ import global.Configs
 import model._
 import org.apache.spark.sql.Row
 import spark.extensions.SQL.SqlRowExtensions
+import Configs._
 
 trait WithConversionHelper {
-
-  import Configs._
 
   lazy val period = conf.getStrings("enterprise.data.timeperiod").head
 
@@ -60,7 +59,7 @@ trait WithConversionHelper {
       row.getString("name").map(bn  => createEnterpriseRecord(ern,"name",bn)),
       row.getString("postcode").map(pc => createEnterpriseRecord(ern,"postcode",pc)),
       row.getString("status").map(ls => createEnterpriseRecord(ern,"legalstatus",ls)),
-      row.getString("sic07").map(sic => createEnterpriseRecord(ern,"sic07", sic))
+      row.getCalcValue("sic07").map(sic => createEnterpriseRecord(ern,"sic07", sic))
     ).collect{case Some(v) => v}
 
   private def rowToReportingUnit(row: Row, rurn: String, ruref: String, ern: String, entref:String): Seq[(String, RowObject)] = Seq(createReportingUnitRecord(ern,rurn,"rurn",rurn), createReportingUnitRecord(ern,ruref,"ruref",ruref), createReportingUnitRecord(ern,ruref,"ern",ern), createReportingUnitRecord(ern,ruref,"entref",entref)) ++
