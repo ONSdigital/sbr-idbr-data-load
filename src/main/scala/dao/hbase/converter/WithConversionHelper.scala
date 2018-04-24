@@ -52,7 +52,7 @@ trait WithConversionHelper {
       row.getString("name").map(bn  => createEnterpriseRecord(ern,"name",bn)),
       row.getString("postcode").map(pc => createEnterpriseRecord(ern,"postcode",pc)),
       row.getString("status").map(ls => createEnterpriseRecord(ern,"legalstatus",ls)),
-      row.getString("sic07").map(sic => createEnterpriseRecord(ern,"sic07", sic))
+      row.getCalcValue("sic07").map(sic => createEnterpriseRecord(ern,"sic07", sic))
     ).collect{case Some(v) => v}
 
   private def rowToLocalUnitLinks(row:Row, keyStr:String, ern:String):Seq[(String, RowObject)] = row.getString("lou").map(lou => Seq(

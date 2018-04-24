@@ -26,7 +26,7 @@ trait TestData {
     def getKeyByName(businessName:String): String = ent.collect{case Enterprise(ern,_,Some(`businessName`),_,_,_) => ern}.head
 
     Seq(
-      Enterprise(getKeyByName("Tesco"),Some("1111111111"),Some("Tesco"),Some("R4 43L"),Some("1"),Some("12312")),
+      Enterprise(getKeyByName("Tesco"),Some("1111111111"),Some("Tesco"),Some("R4 43L"),Some("1"),Some("")),
       Enterprise(getKeyByName("FakeComp"),Some("1000000000"),Some("FakeComp"),Some("F4 4K3"),Some("1"),Some("63111")),
       Enterprise(getKeyByName("Real Comp"),Some("1000000001"),Some("Real Comp"),Some("R4 43L"),Some("1"),Some("46123")),
       Enterprise(getKeyByName("Aldi"),Some("3000000003"),Some("Aldi"),Some("R4 43L"),Some("1"),Some("47144")),
