@@ -7,9 +7,9 @@ import scala.util.Try
 /**
   *
   */
-case class ReportingUnit(rurn:String, ruref:String, ern:String, entref:String, name:String)
+case class ReportingUnit(rurn: String, ruref: String, ern: String, entref: String, name: String)
 
-object ReportingUnit{
+object ReportingUnit {
 
   def apply(row:util.NavigableMap[Array[Byte],Array[Byte]]) = {
 

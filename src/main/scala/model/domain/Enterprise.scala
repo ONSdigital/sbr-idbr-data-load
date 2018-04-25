@@ -7,13 +7,13 @@ import scala.util.Try
 /**
   *
   */
-case class Enterprise(ern:String, entref:Option[String], businessName:Option[String], PostCode:Option[String], legalStatus:Option[String], sic:Option[String])
+case class Enterprise(ern: String, entref: Option[String], businessName: Option[String], PostCode: Option[String], legalStatus: Option[String], sic: Option[String])
 
-object Enterprise{
+object Enterprise {
 
   def apply(row:util.NavigableMap[Array[Byte],Array[Byte]]) = {
 
-    def getValue(key:String) = Try{new String(row.get(key.getBytes))}.toOption
+    def getValue(key: String) = Try{new String(row.get(key.getBytes))}.toOption
 
     new Enterprise(
       new String(row.get("ern".getBytes)),

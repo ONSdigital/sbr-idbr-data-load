@@ -10,7 +10,7 @@ import scala.reflect.io.File
 /**
   *
   */
-class CsvDaoSpec extends WordSpecLike with Matchers with BeforeAndAfterAll with BeforeAndAfterEach with TestData{
+class CsvDaoSpec extends WordSpecLike with Matchers with BeforeAndAfterAll with BeforeAndAfterEach with TestData {
 
   private val entLinkHFilePath = "src/test/resources/data/links/enterprise"
   private val entHFilePath = "src/test/resources/data/enterprise"
