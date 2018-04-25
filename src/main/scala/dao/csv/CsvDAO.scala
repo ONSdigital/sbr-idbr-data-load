@@ -23,7 +23,7 @@ object CsvDAO extends WithConversionHelper with HFileWriter with  DataFrameHelpe
     val louRDD = spark.read.option("header", "true").csv(PATH_TO_LOU_CSV).rdd.map(row => toRecord(row, "lou")).cache
     val reuRDD = reuDF.rdd.map(row => toRecord(row, "reu")).cache
 
-        toHFile(entRDD, PATH_TO_ENT_HFILE)
+    toHFile(entRDD, PATH_TO_ENT_HFILE)
     toHFile(louRDD, PATH_TO_LOU_HFILE)
     toHFile(reuRDD, PATH_TO_REU_HFILE)
     toLinksHFile(entRDD, PATH_TO_LINKS_ENT_HFILE)
