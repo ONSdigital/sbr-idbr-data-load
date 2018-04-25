@@ -69,6 +69,7 @@ trait WithConversionHelper {
 
   private def rowToLocalUnitLinks(row:Row, keyStr:String, ern:String, rurn: String):Seq[(String, RowObject)] = row.getString("lou").map(lou => Seq(
     createLinksRecord(keyStr,s"$childPrefix$lou",localUnit),
+    createLinksRecord(generateLinkKey(rurn,reportingUnit),s"$childPrefix$lou",localUnit),
     createLinksRecord(generateLinkKey(lou.toString,localUnit),s"$parentPrefix$enterprise",ern.toString),
     createLinksRecord(generateLinkKey(lou.toString,localUnit),s"$parentPrefix$reportingUnit",rurn.toString)
   )).getOrElse (Seq[(String, RowObject)]())
