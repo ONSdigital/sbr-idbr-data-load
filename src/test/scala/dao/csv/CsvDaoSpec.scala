@@ -28,12 +28,13 @@ class CsvDaoSpec extends WordSpecLike with Matchers with BeforeAndAfterAll with 
 
     conf.set("enterprise.data.timeperiod", "default")
 
-    updateConf(Array[String]("links", "sbr_dev_db",
-      entLinkHFilePath, louLinkHFilePath,reuLinkHFilePath,
-      "ent", "sbr_dev_db", entHFilePath,
-      "lou", "sbr_dev_db", louHFilePath,
-      "reu", "sbr_dev_db", reuHFilePath,
-      louCsvFilePath, entCsvFilePath,reuCsvFilePath,
+    updateConf(Array[String](
+      "sbr_dev_db",
+      "links", entLinkHFilePath, louLinkHFilePath, reuLinkHFilePath,
+      "ent", entHFilePath,
+      "lou", louHFilePath,
+      "reu", reuHFilePath,
+      louCsvFilePath, entCsvFilePath, reuCsvFilePath,
       "localhost", "2181", "201802"
     ))
   }

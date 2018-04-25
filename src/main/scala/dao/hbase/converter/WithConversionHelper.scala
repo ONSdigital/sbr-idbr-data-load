@@ -85,11 +85,11 @@ trait WithConversionHelper {
 
   private def createLinksRecord(key:String,column:String, value:String) = createRecord(key,HBASE_LINKS_COLUMN_FAMILY,column,value)
 
-  private def createEnterpriseRecord(ern:String,column:String, value:String) = createRecord(generateEntKey(ern),HBASE_ENTERPRISE_COLUMN_FAMILY,column,value)
+  private def createEnterpriseRecord(ern:String,column:String, value:String) = createRecord(generateEntKey(ern),HBASE_COLUMN_FAMILY,column,value)
 
-  private def createLocalUnitRecord(ern:String, lou:String, column:String, value:String) = createRecord(generateLouKey(ern,lou),HBASE_ENTERPRISE_COLUMN_FAMILY,column,value)
+  private def createLocalUnitRecord(ern:String, lou:String, column:String, value:String) = createRecord(generateLouKey(ern,lou),HBASE_COLUMN_FAMILY,column,value)
 
-  private def createReportingUnitRecord(ern:String, ruref:String, column:String, value:String) = createRecord(generateRuKey(ern,ruref),HBASE_ENTERPRISE_COLUMN_FAMILY,column,value)
+  private def createReportingUnitRecord(ern:String, ruref:String, column:String, value:String) = createRecord(generateRuKey(ern,ruref),HBASE_COLUMN_FAMILY,column,value)
 
   private def createRecord(key:String,columnFamily:String, column:String, value:String) = key -> RowObject(key,columnFamily,column,value)
 
