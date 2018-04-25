@@ -1,17 +1,24 @@
 package dao.csv
 
 import dao.hbase.converter.WithConversionHelper
+import spark.calculations.DataFrameHelper
 import dao.hbase.HFileWriter
 import global.Configs
 import org.apache.spark.sql.SparkSession
+import Configs._
 
-object CsvDAO extends WithConversionHelper with HFileWriter {
-
-  import Configs._
+object CsvDAO extends WithConversionHelper with HFileWriter with  DataFrameHelper{
 
   def csvToHFile(implicit spark: SparkSession) {
 
-    val entRDD = spark.read.option("header", "true").csv(PATH_TO_ENT_CSV).rdd.map(row => toRecord(row, "ent")).cache
+    val louDF = spark.read.option("header", "true").csv(PATH_TO_LOU_CSV)
+    val entDF = spark.read.option("header", "true").csv(PATH_TO_ENT_CSV)
+    val divisions = spark.read.option("header","true").csv("src/main/resources/data/div.csv")
+    val df = louDF.select("ern","sic07","employees")
+
+    val sicRDD = getSection(df, divisions).coalesce(df.rdd.getNumPartitions)
+    val entRDD = entDF.join(sicRDD, Seq("ern"), joinType="leftOuter").dropDuplicates("ern","sic07")
+      .rdd.map(row => toRecord(row, "ent")).cache
     val louRDD = spark.read.option("header", "true").csv(PATH_TO_LOU_CSV).rdd.map(row => toRecord(row, "lou")).cache
 
     toHFile(entRDD, PATH_TO_ENT_HFILE)

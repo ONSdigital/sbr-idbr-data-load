@@ -16,11 +16,11 @@ class CsvDaoSpec extends WordSpecLike with Matchers with BeforeAndAfterAll with 
 
   private val entLinkHFilePath = "src/test/resources/data/links/enterprise"
   private val entHFilePath = "src/test/resources/data/enterprise"
-  private val entCsvFilePath = "src/test/resources/data/idbr.csv"
+  private val entCsvFilePath = "src/test/resources/data/ent.csv"
 
   private val louLinkHFilePath = "src/test/resources/data/links/lou"
   private val louHFilePath = "src/test/resources/data/lou"
-  private val louCsvFilePath = "src/test/resources/data/sampleLocal.csv"
+  private val louCsvFilePath = "src/test/resources/data/lou.csv"
 
   override def beforeAll() = {
 

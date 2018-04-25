@@ -5,10 +5,9 @@ import global.Configs
 import model._
 import org.apache.spark.sql.Row
 import spark.extensions.SQL.SqlRowExtensions
+import Configs._
 
 trait WithConversionHelper {
-
-  import Configs._
 
   lazy val period = conf.getStrings("enterprise.data.timeperiod").head
 
@@ -52,7 +51,8 @@ trait WithConversionHelper {
     Seq(
       row.getString("name").map(bn  => createEnterpriseRecord(ern,"name",bn)),
       row.getString("postcode").map(pc => createEnterpriseRecord(ern,"postcode",pc)),
-      row.getString("status").map(ls => createEnterpriseRecord(ern,"legalstatus",ls))
+      row.getString("status").map(ls => createEnterpriseRecord(ern,"legalstatus",ls)),
+      row.getCalcValue("sic07").map(sic => createEnterpriseRecord(ern,"sic07", sic))
     ).collect{case Some(v) => v}
 
   private def rowToLocalUnitLinks(row:Row, keyStr:String, ern:String):Seq[(String, RowObject)] = row.getString("lou").map(lou => Seq(
@@ -60,10 +60,10 @@ trait WithConversionHelper {
     createLinksRecord(generateLinkKey(lou.toString,localUnit),s"$parentPrefix$enterprise",ern.toString)
   )).getOrElse (Seq[(String, RowObject)]())
 
-  private def rowToLegalUnitLinks(row:Row, keyStr:String, ern:String):Seq[(String, RowObject)] = row.getString("ubrn").map(_.flatMap(ubrn => Seq(
+  private def rowToLegalUnitLinks(row:Row, keyStr:String, ern:String):Seq[(String, RowObject)] = row.getString("ubrn").map(ubrn => Seq(
     createLinksRecord(keyStr,s"$childPrefix$ubrn",legalUnit),
     createLinksRecord(generateLinkKey(ubrn.toString,legalUnit),s"$parentPrefix$enterprise",ern.toString)
-  ))).getOrElse (Seq[(String, RowObject)]())
+  )).getOrElse (Seq[(String, RowObject)]())
 
   private def createLinksRecord(key:String,column:String, value:String) = createRecord(key,HBASE_LINKS_COLUMN_FAMILY,column,value)
 

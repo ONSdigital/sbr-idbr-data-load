@@ -48,8 +48,8 @@ object Configs{
   Try{config.getString("hbase.table.lou.namespace")}.map(conf.set("hbase.table.lou.namespace",_)).getOrElse(conf.set("hbase.table.lou.namespace",nameSpace))
   Try{config.getString(louHfile)}.map(conf.set(louHfile,_)).getOrElse(conf.set(louHfile,s"$dataDir/lou/hfile"))
 
-  Try{config.getString("files.lou.csv")}.map(conf.set("files.lou.csv",_)).getOrElse(conf.set("files.lou.csv",s"$dataDir/sampleLocal.csv"))
-  Try{config.getString("files.ent.csv")}.map(conf.set("files.ent.csv",_)).getOrElse(conf.set("files.ent.csv",s"$dataDir/idbr.csv"))
+  Try{config.getString("files.lou.csv")}.map(conf.set("files.lou.csv",_)).getOrElse(conf.set("files.lou.csv",s"$dataDir/lou.csv"))
+  Try{config.getString("files.ent.csv")}.map(conf.set("files.ent.csv",_)).getOrElse(conf.set("files.ent.csv",s"$dataDir/ent.csv"))
 
   Try{config.getString("enterprise.data.timeperiod")}.map(conf.set("enterprise.data.timeperiod",_)).getOrElse(conf.set("enterprise.data.timeperiod","201802"))
   Try{config.getString("spark.deployment.mode")}.map(conf.set("spark.deployment.mode",_)).getOrElse(conf.set("spark.deployment.mode","local"))
