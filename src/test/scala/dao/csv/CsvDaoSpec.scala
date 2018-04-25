@@ -77,4 +77,19 @@ class CsvDaoSpec extends WordSpecLike with Matchers with BeforeAndAfterAll with 
       spark.close()
     }
   }
+
+  "assembler" should {
+    "create hfiles populated with expected reporting unit data" in {
+
+      implicit val spark: SparkSession = SparkSession.builder().master("local[*]").appName("enterprise assembler").getOrCreate()
+
+      CsvDAO.csvToHFile
+
+      val actual: List[ReportingUnit] = readEntitiesFromHFile[ReportingUnit](reuHFilePath).collect.toList.sortBy(_.rurn)
+      val expected: List[ReportingUnit] = testReportingUnit(actual).sortBy(_.rurn).toList
+      actual shouldBe expected
+
+      spark.close()
+    }
+  }
 }

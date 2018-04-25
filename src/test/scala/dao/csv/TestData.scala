@@ -1,6 +1,6 @@
 package dao.csv
 
-import model.domain.{Enterprise, LocalUnit}
+import model.domain._
 
 trait TestData {
   def testLocalUnit(local: Seq[LocalUnit]) = {
@@ -33,4 +33,12 @@ trait TestData {
       Enterprise(getKeyByName("Asda"),Some("7000000007"),Some("Asda"),Some("R4 43L"),Some("1"),Some("78109"))
     )
   }
+
+  def testReportingUnit(reporting: Seq[ReportingUnit]) = {
+    Seq(
+      ReportingUnit("1","1","1","1","reu"),
+      ReportingUnit("2","2","2","2","reu2")
+    )
+  }
+
 }
