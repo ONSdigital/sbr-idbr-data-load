@@ -18,6 +18,7 @@ object HBaseDao {
     loadLinksHFile
     loadEnterprisesHFile
     loadLouHFile
+    loadReuHFile
   }
 
   def loadLinksHFile(implicit connection:Connection) = wrapTransaction(HBASE_LINKS_TABLE_NAME, Try(conf.getStrings("hbase.table.namespace").head).toOption) { (table, admin) =>
@@ -25,6 +26,7 @@ object HBaseDao {
     val regionLocator = connection.getRegionLocator(table.getName)
     bulkLoader.doBulkLoad(new Path(PATH_TO_LINKS_LOU_HFILE), admin, table, regionLocator)
     bulkLoader.doBulkLoad(new Path(PATH_TO_LINKS_ENT_HFILE), admin, table, regionLocator)
+    bulkLoader.doBulkLoad(new Path(PATH_TO_LINKS_REU_HFILE), admin, table, regionLocator)
   }
 
   def loadEnterprisesHFile(implicit connection:Connection) = wrapTransaction(HBASE_ENTERPRISE_TABLE_NAME,Try(conf.getStrings("hbase.table.namespace").head).toOption) { (table, admin) =>
@@ -37,6 +39,12 @@ object HBaseDao {
     val bulkLoader = new LoadIncrementalHFiles(connection.getConfiguration)
     val regionLocator = connection.getRegionLocator(table.getName)
     bulkLoader.doBulkLoad(new Path(PATH_TO_LOU_HFILE), admin, table, regionLocator)
+  }
+
+  def loadReuHFile(implicit connection:Connection) = wrapTransaction(HBASE_REU_TABLE_NAME,Try(conf.getStrings("hbase.table.namespace").head).toOption) { (table, admin) =>
+    val bulkLoader = new LoadIncrementalHFiles(connection.getConfiguration)
+    val regionLocator = connection.getRegionLocator(table.getName)
+    bulkLoader.doBulkLoad(new Path(PATH_TO_REU_HFILE), admin, table, regionLocator)
   }
 
   private def wrapTransaction(tableName:String,nameSpace:Option[String])(action:(Table,Admin) => Unit)(implicit connection:Connection) {
