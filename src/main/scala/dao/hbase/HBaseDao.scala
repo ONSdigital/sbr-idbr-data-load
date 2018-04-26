@@ -6,13 +6,14 @@ import org.apache.hadoop.hbase.io.ImmutableBytesWritable
 import org.apache.hadoop.hbase.mapreduce.{HFileOutputFormat2, LoadIncrementalHFiles}
 import org.apache.hadoop.hbase.{KeyValue, TableName}
 import org.apache.hadoop.mapreduce.Job
+import global.Configs._
+
 import scala.util.Try
 
 /**
   *
   */
 object HBaseDao {
-  import global.Configs._
 
   def loadHFiles(implicit connection:Connection) = {
     loadLinksHFile
