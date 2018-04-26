@@ -18,9 +18,8 @@ object CsvDAO extends WithConversionHelper with HFileWriter with  DataFrameHelpe
     val df = louDF.select("ern", "sic07", "employees")
 
     val sicRDD = getSection(df, divisions).coalesce(df.rdd.getNumPartitions)
-    val entRDD = entDF.join(sicRDD, Seq("ern"), joinType="leftOuter").dropDuplicates("ern", "sic07")
-      .rdd.map(row => toRecord(row, "ent")).cache
-    val louRDD = spark.read.option("header", "true").csv(PATH_TO_LOU_CSV).rdd.map(row => toRecord(row, "lou")).cache
+    val entRDD = entDF.join(sicRDD, Seq("ern"), joinType="leftOuter").dropDuplicates("ern", "sic07").rdd.map(row => toRecord(row, "ent")).cache
+    val louRDD = louDF.rdd.map(row => toRecord(row, "lou")).cache
     val reuRDD = reuDF.rdd.map(row => toRecord(row, "reu")).cache
 
     toHFile(entRDD, PATH_TO_ENT_HFILE)
