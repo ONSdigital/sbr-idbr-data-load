@@ -69,7 +69,7 @@ object Configs{
   lazy val PATH_TO_LINKS_LOU_HFILE = conf.getStrings(louLinks).head
   lazy val PATH_TO_LINKS_REU_HFILE = conf.getStrings(reuLinks).head
 
-  lazy val HBASE_ENTERPRISE_TABLE_NAME = conf.getStrings("hbase.table.enterprise.name").head
+  lazy val HBASE_ENT_TABLE_NAME = conf.getStrings("hbase.table.enterprise.name").head
   lazy val PATH_TO_ENT_HFILE = conf.getStrings(entHfile).head
 
   lazy val HBASE_LOU_TABLE_NAME = conf.getStrings("hbase.table.lou.name").head
