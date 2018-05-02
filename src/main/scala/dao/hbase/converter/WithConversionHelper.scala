@@ -9,8 +9,6 @@ import Configs._
 
 trait WithConversionHelper {
 
-  lazy val period = conf.getStrings("enterprise.data.timeperiod").head
-
   val localUnit = "LOU"
   val enterprise = "ENT"
   val legalUnit = "LEU"
@@ -75,10 +73,10 @@ trait WithConversionHelper {
 
   private def getID(row:Row,id:String) = row.getString(id).map(_.toString).getOrElse(throw new IllegalArgumentException(s"$id must be present"))
 
-  private def generateEntKey(ern:String) = s"${ern.reverse}~$period"
+  private def generateEntKey(ern:String) = s"${ern.reverse}~$ENTERPRISE_DATA_TIMEPERIOD"
 
-  private def generateLouKey(ern:String, lou:String) = s"${ern.reverse}~$period~$lou"
+  private def generateLouKey(ern:String, lou:String) = s"${ern.reverse}~$ENTERPRISE_DATA_TIMEPERIOD~$lou"
 
-  private def generateLinkKey(id:String, suffix:String) = s"$id~$suffix~$period"
+  private def generateLinkKey(id:String, suffix:String) = s"$id~$suffix~$ENTERPRISE_DATA_TIMEPERIOD"
 
 }
