@@ -74,7 +74,7 @@ object Configs{
   lazy val PATH_TO_LOU_CSV  = conf.getStrings("files.lou.csv").head
   lazy val PATH_TO_ENT_CSV = conf.getStrings("files.ent.csv").head
 
-  lazy val ENTERPRISE_DATA_TIMEPERIOD = conf.getStrings("enterprise.data.timeperiod").head
+  lazy val TIME_PERIOD = conf.getStrings("enterprise.data.timeperiod").head
 
   def updateConf(args: Array[String]) = {
 
@@ -97,5 +97,7 @@ object Configs{
     Try(args(12)).map(conf.set("hbase.zookeeper.quorum", _)).getOrElse(Unit)
     Try(args(13)).map(conf.set("hbase.zookeeper.property.clientPort", _)).getOrElse(Unit)
     Try(args(14)).map(conf.set("enterprise.data.timeperiod", _)).getOrElse(Unit)
+
+    //table space src/main/resources/data/links/ent/hfile src/main/resources/data/links/lou/hfile table space src/main/resources/data/links/enterprise/hfile table space src/main/resources/data/links/lou/hfile src/main/resources/data/lou.csv src/main/resources/data/ent.csv local 2181 201804
   }
 }

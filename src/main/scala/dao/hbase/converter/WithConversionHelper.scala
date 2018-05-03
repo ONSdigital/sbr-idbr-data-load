@@ -73,10 +73,10 @@ trait WithConversionHelper {
 
   private def getID(row:Row,id:String) = row.getString(id).map(_.toString).getOrElse(throw new IllegalArgumentException(s"$id must be present"))
 
-  private def generateEntKey(ern:String) = s"${ern.reverse}~$ENTERPRISE_DATA_TIMEPERIOD"
+  private def generateEntKey(ern:String) = s"${ern.reverse}~$TIME_PERIOD"
 
-  private def generateLouKey(ern:String, lou:String) = s"${ern.reverse}~$ENTERPRISE_DATA_TIMEPERIOD~$lou"
+  private def generateLouKey(ern:String, lou:String) = s"${ern.reverse}~$TIME_PERIOD~$lou"
 
-  private def generateLinkKey(id:String, suffix:String) = s"$id~$suffix~$ENTERPRISE_DATA_TIMEPERIOD"
+  private def generateLinkKey(id:String, suffix:String) = s"$id~$suffix~$TIME_PERIOD"
 
 }
