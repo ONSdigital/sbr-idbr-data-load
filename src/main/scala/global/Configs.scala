@@ -109,5 +109,7 @@ object Configs{
     Try(args(14)).map(conf.set("hbase.zookeeper.quorum", _)).getOrElse(Unit)
     Try(args(15)).map(conf.set("hbase.zookeeper.property.clientPort", _)).getOrElse(Unit)
     Try(args(16)).map(conf.set("enterprise.data.timeperiod", _)).getOrElse(Unit)
+
+    //namespace link src/main/resources/data/links/ent/hfile src/main/resources/data/links/lou/hfile src/main/resources/data/links/reu/hfile ent src/main/resources/data/enterprise/hfile lou src/main/resources/data/lou/hfile reu src/main/resources/data/reu/hfile src/main/resources/data/lou.csv src/main/resources/data/ent.csv src/main/resources/data/reu.csv local 2181 201802
   }
 }
