@@ -63,7 +63,19 @@ trait WithConversionHelper {
 
   private def rowToReportingUnit(row: Row, rurn: String, ruref: String, ern: String, entref:String): Seq[(String, RowObject)] = Seq(createUnitRecord(ern, rurn, "rurn", rurn), createUnitRecord(ern, ruref, "ruref", ruref), createUnitRecord(ern, ruref, "ern", ern), createUnitRecord(ern, ruref, "entref", entref)) ++
     Seq(
-      row.getString("name").map(bn  => createUnitRecord(ern, rurn, "name", bn))
+      row.getString("name").map(bn  => createUnitRecord(ern, rurn, "name", bn)),
+      row.getString("tradstyle").map(tradingStyle => createUnitRecord(ern, rurn, "tradingstyle", tradingStyle.trim)),
+      row.getString("address1").map(a1 => createUnitRecord(ern, rurn, "address1", a1)),
+      row.getString("address2").map(a2 => createUnitRecord(ern, rurn, "address2", a2)),
+      row.getString("address3").map(a3 => createUnitRecord(ern, rurn, "address3", a3)),
+      row.getString("address4").map(a4 => createUnitRecord(ern, rurn, "address4", a4)),
+      row.getString("address5").map(a5 => createUnitRecord(ern, rurn, "address5", a5)),
+      row.getString("postcode").map(pc => createUnitRecord(ern, rurn, "postcode", pc)),
+      row.getString("rusic07").map(sic => createUnitRecord(ern, rurn, "sic07", sic)),
+      row.getString("employees").map(employees => createUnitRecord(ern, rurn, "employees", employees)),
+      row.getString("employment").map(employment => createUnitRecord(ern, rurn, "employment", employment)),
+      row.getString("turnover").map(turnover => createUnitRecord(ern, rurn, "turnover", turnover)),
+      row.getString("prn").map(prn => createUnitRecord(ern, rurn, "prn", prn))
     ).collect{case  Some(v) => v}
 
   private def rowToLocalUnitLinks(row: Row, keyStr: String, ern: String, rurn: String):Seq[(String, RowObject)] = row.getString("lou").map(lou => Seq(
