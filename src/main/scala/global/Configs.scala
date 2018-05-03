@@ -51,7 +51,7 @@ object Configs{
   Try{config.getString("files.lou.csv")}.map(conf.set("files.lou.csv",_)).getOrElse(conf.set("files.lou.csv",s"$dataDir/lou.csv"))
   Try{config.getString("files.ent.csv")}.map(conf.set("files.ent.csv",_)).getOrElse(conf.set("files.ent.csv",s"$dataDir/ent.csv"))
 
-  Try{config.getString("enterprise.data.timeperiod")}.map(conf.set("enterprise.data.timeperiod",_)).getOrElse(conf.set("enterprise.data.timeperiod","201802"))
+  Try{config.getString("enterprise.data.timeperiod")}.map(conf.set("enterprise.data.timeperiod",_)).getOrElse(conf.set("enterprise.data.timeperiod","201801"))
   Try{config.getString("spark.deployment.mode")}.map(conf.set("spark.deployment.mode",_)).getOrElse(conf.set("spark.deployment.mode","local"))
 
   lazy val HBASE_LINKS_TABLE_NAME = conf.getStrings("hbase.table.links.name").head
