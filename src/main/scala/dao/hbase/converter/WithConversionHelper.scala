@@ -23,7 +23,7 @@ trait WithConversionHelper {
     val keyStr = generateLinkKey(ern, enterprise)
 
     recordType match {
-      case "ent" => Tables(rowToEnterprise(row, ern, entref), rowToUnitLinks(row, keyStr, ern, "ubrn", legalUnit, enterprise))
+      case "ent" => Tables(rowToEnterprise(row, ern, entref), rowToMultiLinks(row, keyStr, ern, "ubrns", legalUnit, enterprise))
       case "lou" => {
         val lurn  = getID(row, "lou")
         val luref = getID(row, "luref")
@@ -89,6 +89,11 @@ trait WithConversionHelper {
     createLinksRecord(keyStr,s"$childPrefix$unitType",childType),
     createLinksRecord(generateLinkKey(unitType,childType),s"$parentPrefix$parentType",ern)
   )).getOrElse (Seq[(String, RowObject)]())
+
+  private def rowToMultiLinks(row:Row, keyStr:String, ern:String, unitType: String, childType: String, parentType: String):Seq[(String, RowObject)] = row.getStringSeq(unitType).map(_.flatMap(unitType => Seq(
+    createLinksRecord(keyStr,s"$childPrefix$unitType",childType),
+    createLinksRecord(generateLinkKey(unitType,childType),s"$parentPrefix$parentType",ern)
+  ))).getOrElse (Seq[(String, RowObject)]())
 
   private def createLinksRecord(key: String, column: String, value: String) = createRecord(key ,HBASE_LINKS_COLUMN_FAMILY, column, value)
 
