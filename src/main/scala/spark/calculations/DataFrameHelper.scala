@@ -1,7 +1,7 @@
 package spark.calculations
 
 import org.apache.spark.sql.DataFrame
-import org.apache.spark.sql.functions.{col, max, sum, udf}
+import org.apache.spark.sql.functions._
 
 trait DataFrameHelper {
 
@@ -12,6 +12,10 @@ trait DataFrameHelper {
   def getSection(df1: DataFrame, df2: DataFrame): DataFrame = {
     val df = df1.join(df2, (df1("sic07") > df2("SICLower")) && (df1("sic07") < df2("SICUpper"))).drop("SICLower", "SICUpper")
     getClassification(df)
+  }
+
+  def groupLEU(df: DataFrame): DataFrame = {
+    df.groupBy("ern").agg(collect_list("ubrn").as("ubrns"))
   }
 
   private def getClassification(df: DataFrame): DataFrame = {

@@ -10,7 +10,7 @@ import org.apache.spark.rdd.RDD
 trait HFileWriter {
 
   def toHFile(rdd: RDD[model.Tables], path: String): Unit = {
-    rdd.flatMap(_.enterprises).sortBy(t => s"${t._2.key}${t._2.qualifier}")
+    rdd.flatMap(_.units).sortBy(t => s"${t._2.key}${t._2.qualifier}")
       .map(rec => (new ImmutableBytesWritable(rec._1.getBytes()), rec._2.toKeyValue))
       .saveAsNewAPIHadoopFile(path,classOf[ImmutableBytesWritable], classOf[KeyValue], classOf[HFileOutputFormat2], Configs.conf)
   }

@@ -18,18 +18,21 @@ object CsvDAO extends WithConversionHelper with HFileWriter with  DataFrameHelpe
     val df = louDF.select("ern", "sic07", "employees")
 
     val sicRDD = getSection(df, divisions).coalesce(df.rdd.getNumPartitions)
-    val entRDD = entDF.join(sicRDD, Seq("ern"), joinType="leftOuter").dropDuplicates("ern", "sic07").rdd.map(row => toRecord(row, "ent")).cache
+    val entRDD = entDF.join(sicRDD, Seq("ern"), joinType="leftOuter").dropDuplicates("ern", "sic07")
+    val leuRDD = groupLEU(entDF).join(entRDD,Seq("ern"),joinType = "outer").rdd.map(row => toRecord(row, "ent")).cache
     val louRDD = louDF.rdd.map(row => toRecord(row, "lou")).cache
     val reuRDD = reuDF.rdd.map(row => toRecord(row, "reu")).cache
 
-    toHFile(entRDD, PATH_TO_ENT_HFILE)
+    toHFile(leuRDD, PATH_TO_ENT_HFILE)
     toHFile(louRDD, PATH_TO_LOU_HFILE)
     toHFile(reuRDD, PATH_TO_REU_HFILE)
-    toLinksHFile(entRDD, PATH_TO_LINKS_ENT_HFILE)
+    toLinksHFile(leuRDD, PATH_TO_LINKS_ENT_HFILE)
     toLinksHFile(louRDD, PATH_TO_LINKS_LOU_HFILE)
     toLinksHFile(reuRDD, PATH_TO_LINKS_REU_HFILE)
 
+    sicRDD.unpersist()
     entRDD.unpersist()
+    leuRDD.unpersist()
     louRDD.unpersist()
     reuRDD.unpersist()
   }

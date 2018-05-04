@@ -36,8 +36,10 @@ trait TestData {
 
   def testReportingUnit(reporting: Seq[ReportingUnit]) = {
     Seq(
-      ReportingUnit("1", "1", "1", "1", "reu"),
-      ReportingUnit("2", "2", "2", "2", "reu2")
+      ReportingUnit("1111111110","1231231230","99000000000","11000000001","tesco",None,"add1",Some("2"),Some("3"),Some("4"),Some("5"),"postcode","12345","64","99","1","prn"),
+      ReportingUnit("1111111110","1231231231","99000000001","11000000002", "asda",None,"add1",Some("2"),Some("3"),Some("4"),Some("5"),"postcode","11223","12","88","2","prn"),
+      ReportingUnit("3000000001","1231231232","99000000002","11000000003","aldi",None,"add1",Some("2"),Some("3"),Some("4"),Some("5"),"postcode","45123","8","45","3","prn"),
+      ReportingUnit("2000000001","1231231233","99000000003","11000000004","house",None,"add1",Some("2"),Some("3"),Some("4"),Some("5"),"postcode","42123","8","15","4","prn")
     )
   }
 
