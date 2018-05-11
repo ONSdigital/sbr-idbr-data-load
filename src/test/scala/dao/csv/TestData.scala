@@ -1,5 +1,6 @@
 package dao.csv
 
+import model.RowObject
 import model.domain._
 
 trait TestData {
@@ -43,4 +44,20 @@ trait TestData {
     )
   }
 
+  def testEnterpriseLinks(entLinks: Seq[UnitLinks]) = {
+    Seq(
+      new UnitLinks("7000000001~ENT~201802",RowObject("7000000001~ENT~201802","l","c_700000000001","LEU")),
+      new UnitLinks("7000000001~ENT~201802",RowObject("7000000001~ENT~201802","l","c_700000000001","LEU")),
+      new UnitLinks("7000000001~ENT~201802",RowObject("7000000001~ENT~201802","l","c_700000000001","LEU")),
+      new UnitLinks("7000000001~ENT~201802",RowObject("7000000001~ENT~201802","l","c_700000000001","LEU")),
+      new UnitLinks("7000000001~ENT~201802",RowObject("7000000001~ENT~201802","l","c_700000000001","LEU")),
+      new UnitLinks("7000000001~ENT~201802",RowObject("7000000001~ENT~201802","l","c_700000000001","LEU")),
+      new UnitLinks("7000000001~ENT~201802",RowObject("7000000001~ENT~201802","l","c_700000000001","LEU")),
+      new UnitLinks("7000000001~ENT~201802",RowObject("7000000001~ENT~201802","l","c_700000000001","LEU")),
+      new UnitLinks("7000000001~ENT~201802",RowObject("7000000001~ENT~201802","l","c_700000000001","LEU")),
+      new UnitLinks("7000000001~ENT~201802",RowObject("7000000001~ENT~201802","l","c_700000000001","LEU")),
+      new UnitLinks("7000000001~ENT~201802",RowObject("7000000001~ENT~201802","l","c_700000000001","LEU")),
+      new UnitLinks("7000000001~ENT~201802",RowObject("7000000001~ENT~201802","l","c_700000000001","LEU"))
+    )
+  }
 }

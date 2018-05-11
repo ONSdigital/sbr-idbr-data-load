@@ -63,33 +63,81 @@ class CsvDaoSpec extends WordSpecLike with Matchers with BeforeAndAfterAll with 
     }
   }
 
-  "assembler" should {
-    "create hfiles populated with expected local unit data" in {
+//  "assembler" should {
+//    "create hfiles populated with expected local unit data" in {
+//
+//      implicit val spark: SparkSession = SparkSession.builder().master("local[*]").appName("enterprise assembler").getOrCreate()
+//
+//      CsvDAO.csvToHFile
+//
+//      val actual: List[LocalUnit] = readEntitiesFromHFile[LocalUnit](louHFilePath).collect.toList.sortBy(_.lurn)
+//      val expected: List[LocalUnit] = testLocalUnit(actual).sortBy(_.lurn).toList
+//      actual shouldBe expected
+//
+//      spark.close()
+//    }
+//  }
 
-      implicit val spark: SparkSession = SparkSession.builder().master("local[*]").appName("enterprise assembler").getOrCreate()
+//  "assembler" should {
+//    "create hfiles populated with expected reporting unit data" in {
+//
+//      implicit val spark: SparkSession = SparkSession.builder().master("local[*]").appName("enterprise assembler").getOrCreate()
+//
+//      CsvDAO.csvToHFile
+//
+//      val actual: List[ReportingUnit] = readEntitiesFromHFile[ReportingUnit](reuHFilePath).collect.toList.sortBy(_.rurn)
+//      val expected: List[ReportingUnit] = testReportingUnit(actual).sortBy(_.rurn).toList
+//      actual shouldBe expected
+//
+//      spark.close()
+//    }
+//  }
 
-      CsvDAO.csvToHFile
+  //unit links test
 
-      val actual: List[LocalUnit] = readEntitiesFromHFile[LocalUnit](louHFilePath).collect.toList.sortBy(_.lurn)
-      val expected: List[LocalUnit] = testLocalUnit(actual).sortBy(_.lurn).toList
-      actual shouldBe expected
 
-      spark.close()
-    }
-  }
+//  "assembler" should {
+//    "create hfiles populated with expected enterprise unit links" in {
+//
+//      implicit val spark: SparkSession = SparkSession.builder().master("local[*]").appName("enterprise assembler").getOrCreate()
+//
+//      CsvDAO.csvToHFile
+//
+//      val actual: List[UnitLinks] = readEntitiesFromHFile[UnitLinks](entLinkHFilePath).collect.toList.sortBy(_.rowkey)
+//      val expected: List[UnitLinks] = testEnterpriseLinks(actual).sortBy(_.rowkey).toList
+//      actual shouldBe expected
+//
+//      spark.close()
+//    }
+//  }
 
-  "assembler" should {
-    "create hfiles populated with expected reporting unit data" in {
-
-      implicit val spark: SparkSession = SparkSession.builder().master("local[*]").appName("enterprise assembler").getOrCreate()
-
-      CsvDAO.csvToHFile
-
-      val actual: List[ReportingUnit] = readEntitiesFromHFile[ReportingUnit](reuHFilePath).collect.toList.sortBy(_.rurn)
-      val expected: List[ReportingUnit] = testReportingUnit(actual).sortBy(_.rurn).toList
-      actual shouldBe expected
-
-      spark.close()
-    }
-  }
+//  "assembler" should {
+//    "create hfiles populated with expected local unit links" in {
+//
+//      implicit val spark: SparkSession = SparkSession.builder().master("local[*]").appName("enterprise assembler").getOrCreate()
+//
+//      CsvDAO.csvToHFile
+//
+//      val actual: List[UnitLinks] = readEntitiesFromHFile[UnitLinks](louLinkHFilePath).collect.toList.sortBy(_.rowkey)
+//      val expected: List[UnitLinks] = testEnterpriseLinks(actual).sortBy(_.rowkey).toList
+//      actual shouldBe expected
+//
+//      spark.close()
+//    }
+//  }
+//
+//  "assembler" should {
+//    "create hfiles populated with expected reporting unit links" in {
+//
+//      implicit val spark: SparkSession = SparkSession.builder().master("local[*]").appName("enterprise assembler").getOrCreate()
+//
+//      CsvDAO.csvToHFile
+//
+//      val actual: List[UnitLinks] = readEntitiesFromHFile[UnitLinks](entLinkHFilePath).collect.toList.sortBy(_.rowkey)
+//      val expected: List[UnitLinks] = testEnterpriseLinks(actual).sortBy(_.rowkey).toList
+//      actual shouldBe expected
+//
+//      spark.close()
+//    }
+//  }
 }

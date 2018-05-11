@@ -32,7 +32,7 @@ object Enterprise {
     val ern = entry._2.find(_._1=="ern").get._2
 
     new Enterprise(
-      ern,
+      entry.toString(),
       getValue("entref"),
       getValue("name"),
       getValue("postcode"),
