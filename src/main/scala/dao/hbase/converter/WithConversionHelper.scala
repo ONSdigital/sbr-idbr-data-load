@@ -48,6 +48,12 @@ trait WithConversionHelper {
   private def rowToEnterprise(row:Row,ern:String,entref:String): Seq[(String, RowObject)] = Seq(createEnterpriseRecord(ern,"ern",ern), createEnterpriseRecord(ern,"entref",entref))++
     Seq(
       row.getString("name").map(bn  => createEnterpriseRecord(ern,"name",bn)),
+      row.getString("tradstyle").map(tradingStyle => createEnterpriseRecord(ern,"tradingstyle",tradingStyle.trim)),
+      row.getString("address1").map(a1 => createEnterpriseRecord(ern,"address1",a1)),
+      row.getString("address2").map(a2 => createEnterpriseRecord(ern,"address2",a2)),
+      row.getString("address3").map(a3 => createEnterpriseRecord(ern,"address3",a3)),
+      row.getString("address4").map(a4 => createEnterpriseRecord(ern,"address4",a4)),
+      row.getString("address5").map(a5 => createEnterpriseRecord(ern,"address5",a5)),
       row.getString("postcode").map(pc => createEnterpriseRecord(ern,"postcode",pc)),
       row.getString("status").map(ls => createEnterpriseRecord(ern,"legalstatus",ls)),
       row.getCalcValue("sic07").map(sic => createEnterpriseRecord(ern,"sic07", sic))
