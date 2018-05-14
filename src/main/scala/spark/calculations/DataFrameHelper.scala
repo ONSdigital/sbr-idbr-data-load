@@ -19,12 +19,11 @@ trait DataFrameHelper {
   }
 
   private def getClassification(df: DataFrame): DataFrame = {
-    val sic1 = getSic(df, "Section")
-    val sic2 = getSic(sic1.withColumn("division", prefixDivision(2)(col("sic07"))), "division").withColumn("subdivision", subDivision(col("division"), prefixDivision(3)(col("sic07"))))
-    val sic3 = getSic(sic2.withColumn("division", prefixDivision(2)(col("sic07"))), "division")
-    val sic4 = getSic(sic3.withColumn("group", prefixDivision(3)(col("sic07"))), "group")
-    val sic5 = getSic(sic4.withColumn("class", prefixDivision(4)(col("sic07"))), "class")
-    getSic(sic5, "sic07")
+    val sic1 = getSic(df.withColumn("division", prefixDivision(2)(col("sic07"))), "division").withColumn("subdivision", subDivision(col("division"), prefixDivision(3)(col("sic07"))))
+    val sic2 = getSic(sic1.withColumn("division", prefixDivision(2)(col("sic07"))), "division")
+    val sic3 = getSic(sic2.withColumn("group", prefixDivision(3)(col("sic07"))), "group")
+    val sic4 = getSic(sic3.withColumn("class", prefixDivision(4)(col("sic07"))), "class")
+    getSic(sic4, "sic07")
   }
 
   private def getSic(dataFrame: DataFrame, level: String): DataFrame = {
