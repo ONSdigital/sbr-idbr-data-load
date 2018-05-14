@@ -1,7 +1,7 @@
 package spark.calculations
 
 import org.apache.spark.sql.DataFrame
-import org.apache.spark.sql.functions.{col, max, sum, udf,collect_list}
+import org.apache.spark.sql.functions._
 
 trait DataFrameHelper {
 

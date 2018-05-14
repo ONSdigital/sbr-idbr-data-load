@@ -1,8 +1,8 @@
-ubrn,entref,ern,name,tradstyle,address1,address2,address3,address4,address5,postcode,status
-300000000000,1000000000,2000000000,FakeComp,Mexicos,Fake street,Fake town,Fake city,Fake county,null,F4 4K3,1
-21840175,1000000001,2000000001,Real Comp,Poundland,Real street,Real town,Real City,null,null,R4 43L,1
-300000000001,1000000001,2000000001,Real Comp,Poundland,Real street,Real town,Real City,null,null,R4 43L,1
-300000000002,1000000001,2000000001,Real Comp,Poundland,Real street,Real town,Real City,null,null,R4 43L,1
-900000000001,3000000003,3000000001,Aldi,Poundland,Real street,Real town,Real City,null,null,R4 43L,1
-700000000001,7000000007,7000000001,Asda,Poundland,Real street,Real town,Real City,null,null,R4 43L,1
-1111111111,1111111111,111111110,Tesco,Poundland,Real street,Real town,Real City,null,null,R4 43L,11
+ubrn,entref,ern,name,tradstyle,address1,address2,address3,address4,address5,postcode,status,sic07
+300000000000,1000000000,2000000000,FakeComp,Mexicos,Fake street,Fake town,Fake city,Fake county,null,F4 4K3,1,12345
+21840175,1000000001,2000000001,Real Comp,Poundland,Real street,Real town,Real City,null,null,R4 43L,1,12345
+300000000001,1000000001,2000000001,Real Comp,Poundland,Real street,Real town,Real City,null,null,R4 43L,1,12345
+300000000002,1000000001,2000000001,Real Comp,Poundland,Real street,Real town,Real City,null,null,R4 43L,1,12345
+900000000001,3000000003,3000000001,Aldi,Poundland,Real street,Real town,Real City,null,null,R4 43L,1,12345
+700000000001,7000000007,7000000001,Asda,Poundland,Real street,Real town,Real City,null,null,R4 43L,1,12345
+1111111111,1111111111,111111110,Tesco,Poundland,Real street,Real town,Real City,null,null,R4 43L,11,12345
