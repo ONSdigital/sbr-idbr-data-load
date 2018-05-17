@@ -65,6 +65,7 @@ trait WithConversionHelper {
     Seq(
       row.getString("name").map(bn  => createUnitRecord(ern, rurn, "name", bn)),
       row.getString("tradstyle").map(tradingStyle => createUnitRecord(ern, rurn, "tradingstyle", tradingStyle.trim)),
+      row.getString("legalstatus").map(ls => createUnitRecord(ern, rurn, "legalstatus", ls)),
       row.getString("address1").map(a1 => createUnitRecord(ern, rurn, "address1", a1)),
       row.getString("address2").map(a2 => createUnitRecord(ern, rurn, "address2", a2)),
       row.getString("address3").map(a3 => createUnitRecord(ern, rurn, "address3", a3)),

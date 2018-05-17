@@ -7,9 +7,9 @@ import scala.util.Try
 /**
   *
   */
-case class ReportingUnit(rurn: String, ruref: String, ern: String, entref: String, name: String, tradingstyle: Option[String],
-                        address1: String, address2: Option[String], address3: Option[String], address4: Option[String], address5: Option[String],
-                        postcode: String, sic07: String, employees: String, employment: String, turnover: String, prn: String)
+case class ReportingUnit(rurn: String, ruref: Option[String], ern: String, entref: Option[String], name: String, tradingstyle: Option[String],
+                        legalstatus: Option[String], address1: String, address2: Option[String], address3: Option[String], address4: Option[String],
+                         address5: Option[String], postcode: String, sic07: String, employees: String, employment: String, turnover: String, prn: String)
 
 object ReportingUnit {
 
@@ -20,11 +20,12 @@ object ReportingUnit {
 
     new ReportingUnit(
       getValue("rurn"),
-      getValue("ruref"),
+      getOptionValue("ruref"),
       getValue("ern"),
-      getValue("entref"),
+      getOptionValue("entref"),
       getValue("name"),
       getOptionValue("tradingstyle"),
+      getOptionValue("legalstatus"),
       getValue("address1"),
       getOptionValue("address2"),
       getOptionValue("address3"),
@@ -48,11 +49,12 @@ object ReportingUnit {
 
     new ReportingUnit(
       getColumn("rurn"),
-      getColumn("ruref"),
+      getOptionColumn("ruref"),
       getColumn("ern"),
-      getColumn("entref"),
+      getOptionColumn("entref"),
       getColumn("name"),
       getOptionColumn("tradingstyle"),
+      getOptionColumn("legalstatus"),
       getColumn("address1"),
       getOptionColumn("address2"),
       getOptionColumn("address3"),
