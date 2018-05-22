@@ -13,14 +13,12 @@ object CsvDAO extends WithConversionHelper with HFileWriter with  DataFrameHelpe
   def csvToHFile(implicit spark: SparkSession) {
 
     val louDF = spark.read.option("header", "true").csv(PATH_TO_LOU_CSV)
-    val entDF = spark.read.option("header", "true").csv(PATH_TO_ENT_CSV)
-    //.withColumnRenamed("sic07", "temp_sic")
+    val entDF = spark.read.option("header", "true").csv(PATH_TO_ENT_CSV).withColumnRenamed("sic07", "temp_sic")
     val divisions = spark.read.option("header","true").csv("src/main/resources/data/div.csv")
     val df = louDF.select("ern","sic07","employees")
 
     val sicRDD = getSection(df, divisions).coalesce(df.rdd.getNumPartitions)
-    val entRDD = entDF.join(sicRDD, Seq("ern"), joinType="leftOuter").dropDuplicates("ern","sic07")
-      //.withColumn("sic", coalesce(col("sic07"), col("temp_sic")))
+    val entRDD = entDF.join(sicRDD, Seq("ern"), joinType="leftOuter").dropDuplicates("ern","sic07").withColumn("sic", coalesce(col("sic07"), col("temp_sic")))
     val groupedLEU = groupLEU(entDF)
     val louRDD = louDF.rdd.map(row => toRecord(row, "lou")).cache
     val leuRDD = groupedLEU.join(entRDD,Seq("ern"),joinType = "outer").rdd.map(row => toRecord(row, "ent")).cache
