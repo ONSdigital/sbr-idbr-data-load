@@ -37,49 +37,12 @@ trait TestData {
 
   def testReportingUnit(reporting: Seq[ReportingUnit]) = {
     Seq(
-          ReportingUnit(
-            Some("1111111110"),
-            Some("1231231230"),
-            Some("99000000000"),
-            Some("11000000001"),
-            Some("tesco"),
-            Some(""),
-            Some("legal"),
-            Some("add1"),
-            Some("2"),
-            Some("3"),
-            Some("4"),
-            Some("5"),
-            Some("postcode"),
-            Some("12345"),
-            Some("64"),
-            Some("99"),
-            Some("1"),
-            Some("prn")
-          )
+      ReportingUnit("1111111110", Some("1231231230"), "99000000000", Some("11000000001"), "tesco" ,None, Some("legal"), "add1", Some("2"), Some("3"), Some("4"), Some("5"), "postcode", "12345", "64", "99", "1", "prn"),
+      ReportingUnit("1111111110", Some("1231231231"), "99000000001", Some("11000000002"), "asda" , None, Some("legal"), "add1", Some("2"), Some("3"), Some("4"), Some("5"), "postcode", "11223", "12", "88", "2", "prn"),
+      ReportingUnit("3000000001", Some("1231231232"), "99000000002", Some("11000000003"), "aldi" , None, Some("legal"), "add1", Some("2"), Some("3"), Some("4"), Some("5"), "postcode", "45123", "8" ," 45", "3", "prn"),
+      ReportingUnit("2000000001", Some("1231231233"), "99000000003", Some("11000000004"), "house", None, Some("legal"), "add1", Some("2"), Some("3"), Some("4"), Some("5"), "postcode", "42123", "8" , "15", "4", "prn")
     )
   }
-
-//  def testReportingUnit(reporting: Seq[ReportingUnit]) = {
-//    Seq(
-//      ReportingUnit(
-//        "1111111110", Some("1231231230"),
-//        //"99000000000", Some("11000000001"),
-//        "tesco" ,None, Some("legal"), "add1", Some("2"), Some("3"), Some("4"), Some("5"), "postcode", "12345", "64", "99", "1", "prn"),
-//      ReportingUnit(
-//        "1111111110", Some("1231231231"),
-//        //"99000000001", Some("11000000002"),
-//        "asda" , None, Some("legal"), "add1", Some("2"), Some("3"), Some("4"), Some("5"), "postcode", "11223", "12", "88", "2", "prn"),
-//      ReportingUnit(
-//        "3000000001", Some("1231231232"),
-//        //"99000000002", Some("11000000003"),
-//        "aldi" , None, Some("legal"), "add1", Some("2"), Some("3"), Some("4"), Some("5"), "postcode", "45123", "8" ," 45", "3", "prn"),
-//      ReportingUnit(
-//        "2000000001", Some("1231231233"),
-//        //"99000000003", Some("11000000004"),
-//        "house", None, Some("legal"), "add1", Some("2"), Some("3"), Some("4"), Some("5"), "postcode", "42123", "8" , "15", "4", "prn")
-//    )
-//  }
 
   def testEnterpriseLinks(entLinks: Seq[UnitLinks]) = {
     Seq(
