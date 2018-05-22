@@ -20,7 +20,7 @@ object Enterprise {
       getValue("entref"),
       getValue("name"),
       getValue("postcode"),
-      getValue("legalstatus"),
+      getValue("legal_status"),
       getValue("sic07"))
   }
 
@@ -36,7 +36,7 @@ object Enterprise {
       getValue("entref"),
       getValue("name"),
       getValue("postcode"),
-      getValue("legalstatus"),
+      getValue("legal_status"),
       getValue("sic07"))
   }
 

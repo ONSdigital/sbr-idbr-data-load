@@ -41,8 +41,10 @@ trait WithConversionHelper {
   private def rowToLocalUnit(row: Row, lurn: String, luref: String,ern:String, entref: String): Seq[(String, RowObject)] = Seq(createUnitRecord(ern, lurn, "lurn", lurn), createUnitRecord(ern, lurn, "luref", luref),
     createUnitRecord(ern, lurn, "ern", ern), createUnitRecord(ern, lurn, "entref", entref))++
         Seq(
+          row.getString("rurn").map(rurn => createUnitRecord(ern, lurn, "rurn", rurn)),
+          row.getString("ruref").map(ruref => createUnitRecord(ern, lurn, "ruref", ruref)),
           row.getString("name").map(bn  => createUnitRecord(ern, lurn, "name", bn.trim)),
-          row.getString("tradstyle").map(tradingStyle => createUnitRecord(ern, lurn, "tradingstyle", tradingStyle.trim)),
+          row.getString("tradstyle").map(tradingStyle => createUnitRecord(ern, lurn, "trading_style", tradingStyle.trim)),
           row.getString("address1").map(a1 => createUnitRecord(ern, lurn, "address1", a1)),
           row.getString("address2").map(a2 => createUnitRecord(ern, lurn, "address2", a2)),
           row.getString("address3").map(a3 => createUnitRecord(ern, lurn, "address3", a3)),
@@ -57,15 +59,16 @@ trait WithConversionHelper {
     Seq(
       row.getString("name").map(bn  => createEnterpriseRecord(ern, "name", bn)),
       row.getString("postcode").map(pc => createEnterpriseRecord(ern, "postcode", pc)),
-      row.getString("status").map(ls => createEnterpriseRecord(ern, "legalstatus", ls)),
+      row.getString("status").map(ls => createEnterpriseRecord(ern, "legal_status", ls)),
       row.getCalcValue("sic07").map(sic => createEnterpriseRecord(ern, "sic07", sic))
     ).collect{case Some(v) => v}
 
-  private def rowToReportingUnit(row: Row, rurn: String, ruref: String, ern: String, entref:String): Seq[(String, RowObject)] = Seq(createUnitRecord(ern, rurn, "rurn", rurn), createUnitRecord(ern, ruref, "ruref", ruref), createUnitRecord(ern, ruref, "ern", ern), createUnitRecord(ern, ruref, "entref", entref)) ++
+  private def rowToReportingUnit(row: Row, rurn: String, ruref: String, ern: String, entref: String): Seq[(String, RowObject)] = Seq(createUnitRecord(ern, rurn, "rurn", rurn), createUnitRecord(ern, ruref, "ruref", ruref),
+    createUnitRecord(ern, rurn, "entref", entref), createUnitRecord(ern, rurn, "ern", ern)) ++
     Seq(
       row.getString("name").map(bn  => createUnitRecord(ern, rurn, "name", bn)),
-      row.getString("tradstyle").map(tradingStyle => createUnitRecord(ern, rurn, "tradingstyle", tradingStyle.trim)),
-      row.getString("legalstatus").map(ls => createUnitRecord(ern, rurn, "legalstatus", ls)),
+      row.getString("tradstyle").map(tradingStyle => createUnitRecord(ern, rurn, "trading_style", tradingStyle.trim)),
+      row.getString("legalstatus").map(ls => createUnitRecord(ern, rurn, "legal_status", ls)),
       row.getString("address1").map(a1 => createUnitRecord(ern, rurn, "address1", a1)),
       row.getString("address2").map(a2 => createUnitRecord(ern, rurn, "address2", a2)),
       row.getString("address3").map(a3 => createUnitRecord(ern, rurn, "address3", a3)),

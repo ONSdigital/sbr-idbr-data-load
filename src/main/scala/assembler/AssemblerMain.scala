@@ -11,6 +11,6 @@ object AssemblerMain extends EnterpriseAssemblerService {
 
     updateConf(args)
      loadFromCsv
-     //loadFromHFile
+     loadFromHFile
    }
 }

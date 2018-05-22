@@ -7,7 +7,9 @@ import scala.util.Try
 /**
   *
   */
-case class LocalUnit(lurn: String, luref:Option[String], ern: String, entref: Option[String],
+case class LocalUnit(lurn: String, luref:Option[String],
+                     rurn: String, ruref: Option[String],
+                     ern: String, entref: Option[String],
                      name: String, tradingstyle: Option[String], address1: String, address2: Option[String],
                      address3: Option[String],address4: Option[String],address5: Option[String], postcode: String,
                      sic07: Option[String], employees: Option[String])
@@ -19,12 +21,14 @@ object LocalUnit {
     def getString(key:String) = new String(row.get(key.getBytes))
 
     new LocalUnit(
-      new String(row.get("lurn".getBytes)),
+      getString("lurn"),
       getValue("luref"),
+      getString("rurn"),
+      getValue("ruref"),
       getString("ern"),
       getValue("entref"),
       getString("name"),
-      getValue("tradingstyle"),
+      getValue("trading_style"),
       getString("address1"),
       getValue("address2"),
       getValue("address3"),
@@ -45,10 +49,12 @@ object LocalUnit {
     new LocalUnit(
       getString("lurn"),
       getValue("luref"),
+      getString("rurn"),
+      getValue("ruref"),
       getString("ern"),
       getValue("entref"),
       getString("name"),
-      getValue("tradingstyle"),
+      getValue("trading_style"),
       getString("address1"),
       getValue("address2"),
       getValue("address3"),
