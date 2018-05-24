@@ -9,9 +9,7 @@ trait DataFrameHelper {
 
   private def prefixDivision(prefix: Int) = udf((column: String) => column.substring(0, prefix))
 
-  def groupLEU(df: DataFrame): DataFrame = {
-    df.groupBy("ern").agg(collect_list("ubrn").as("ubrns"))
-  }
+  def groupLEU(df: DataFrame): DataFrame = df.groupBy("ern").agg(collect_list("ubrn").as("ubrns"))
 
   def getClassification(df: DataFrame): DataFrame = {
     val sic1 = getSic(df.withColumn("division", prefixDivision(2)(col("sic07"))), "division")
