@@ -71,7 +71,7 @@ trait WithConversionHelper {
   private def rowToReportingUnit(row: Row, rurn: String, ruref: String, ern: String, entref: String): Seq[(String, RowObject)] = Seq(createUnitRecord(ern, rurn, "rurn", rurn), createUnitRecord(ern, ruref, "ruref", ruref), createUnitRecord(ern, rurn, "entref", entref), createUnitRecord(ern, rurn, "ern", ern)) ++
     Seq(
       row.getString("name").map(bn  => createUnitRecord(ern, rurn, "name", bn)),
-      row.getString("tradstyle").map(tradingStyle => createUnitRecord(ern, rurn, "trading_style", tradingStyle.trim)),
+      row.getString("tradestyle").map(tradingStyle => createUnitRecord(ern, rurn, "trading_style", tradingStyle.trim)),
       row.getString("legalstatus").map(ls => createUnitRecord(ern, rurn, "legal_status", ls)),
       row.getString("address1").map(a1 => createUnitRecord(ern, rurn, "address1", a1)),
       row.getString("address2").map(a2 => createUnitRecord(ern, rurn, "address2", a2)),
