@@ -45,8 +45,8 @@ mainClass in (Compile,run) := Some("assembler.AssemblerMain")
 lazy val myParameters = Array("LINKS", "ons",
   "src/main/resources/data/links/hfile", "LOU",
   "ons", "src/main/resources/data/lou/hfile",
-  "src/main/resources/data/test.parquet", "src/main/resources/data/LOC_to_ENT.csv",
-  "localhost", "2181", "201802", "local")
+  "src/main/resources/data/test.parquet", "src/main/resources/data/lou.csv",
+  "src/main/resources/data/reu.csv", "localhost", "2181", "201802", "local")
 
 lazy val runWithArgs = taskKey[Unit]("run-args")
 
