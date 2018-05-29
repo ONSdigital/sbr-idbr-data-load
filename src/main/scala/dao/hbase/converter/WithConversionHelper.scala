@@ -33,7 +33,7 @@ trait WithConversionHelper {
       case "reu" => {
         val rurn  = getID(row, "rurn")
         val ruref = getID(row, "ruref")
-        Tables(rowToReportingUnit(row, rurn, ruref, ern, entref), rowToUnitLinks(row, keyStr, ern, "ruref", reportingUnit, enterprise))
+        Tables(rowToReportingUnit(row, rurn, ruref, ern, entref), rowToMultiLinks(row, keyStr, ern, "ruref", reportingUnit, enterprise))
       }
     }
   }
@@ -43,24 +43,30 @@ trait WithConversionHelper {
         Seq(
           row.getString("rurn").map(rurn => createUnitRecord(ern, lurn, "rurn", rurn)),
           row.getString("ruref").map(ruref => createUnitRecord(ern, lurn, "ruref", ruref)),
-          row.getString("name").map(bn  => createUnitRecord(ern, lurn, "name", bn.trim)),
-          row.getString("tradstyle").map(tradingStyle => createUnitRecord(ern, lurn, "trading_style", tradingStyle.trim)),
-          row.getString("address1").map(a1 => createUnitRecord(ern, lurn, "address1", a1)),
-          row.getString("address2").map(a2 => createUnitRecord(ern, lurn, "address2", a2)),
-          row.getString("address3").map(a3 => createUnitRecord(ern, lurn, "address3", a3)),
-          row.getString("address4").map(a4 => createUnitRecord(ern, lurn, "address4", a4)),
-          row.getString("address5").map(a5 => createUnitRecord(ern, lurn, "address5", a5)),
-          row.getString("postcode").map(pc => createUnitRecord(ern, lurn, "postcode", pc)),
-          row.getCalcValue("sic07").map(sic => createUnitRecord(ern, lurn, "sic07", sic)),
-          row.getCalcValue("employees").map(employees => createUnitRecord(ern, lurn, "employees", employees))
+          row.getString("name").map(bn  => createLocalUnitRecord(ern,lurn,"name",bn.trim)),
+          row.getString("tradstyle").map(tradingStyle => createLocalUnitRecord(ern,lurn,"trading_style",tradingStyle.trim)),
+          row.getString("address1").map(a1 => createLocalUnitRecord(ern,lurn,"address1",a1)),
+          row.getString("address2").map(a2 => createLocalUnitRecord(ern,lurn,"address2",a2)),
+          row.getString("address3").map(a3 => createLocalUnitRecord(ern,lurn,"address3",a3)),
+          row.getString("address4").map(a4 => createLocalUnitRecord(ern,lurn,"address4",a4)),
+          row.getString("address5").map(a5 => createLocalUnitRecord(ern,lurn,"address5",a5)),
+          row.getString("postcode").map(pc => createLocalUnitRecord(ern,lurn,"postcode",pc)),
+          row.getCalcValue("sic07").map(sic => createLocalUnitRecord(ern,lurn,"sic07",sic)),
+          row.getCalcValue("employees").map(employees => createLocalUnitRecord(ern,lurn,"employees",employees))
         ).collect{case Some(v) => v}
 
   private def rowToEnterprise(row: Row, ern: String, entref: String): Seq[(String, RowObject)] = Seq(createEnterpriseRecord(ern, "ern", ern), createEnterpriseRecord(ern, "entref", entref))++
     Seq(
-      row.getString("name").map(bn  => createEnterpriseRecord(ern, "name", bn)),
-      row.getString("postcode").map(pc => createEnterpriseRecord(ern, "postcode", pc)),
-      row.getString("status").map(ls => createEnterpriseRecord(ern, "legal_status", ls)),
-      row.getCalcValue("sic07").map(sic => createEnterpriseRecord(ern, "sic07", sic))
+      row.getString("name").map(bn  => createEnterpriseRecord(ern,"name",bn)),
+      row.getString("tradstyle").map(tradingStyle => createEnterpriseRecord(ern,"trading_style",tradingStyle.trim)),
+      row.getString("address1").map(a1 => createEnterpriseRecord(ern,"address1",a1)),
+      row.getString("address2").map(a2 => createEnterpriseRecord(ern,"address2",a2)),
+      row.getString("address3").map(a3 => createEnterpriseRecord(ern,"address3",a3)),
+      row.getString("address4").map(a4 => createEnterpriseRecord(ern,"address4",a4)),
+      row.getString("address5").map(a5 => createEnterpriseRecord(ern,"address5",a5)),
+      row.getString("postcode").map(pc => createEnterpriseRecord(ern,"postcode",pc)),
+      row.getString("status").map(ls => createEnterpriseRecord(ern,"legal_status",ls)),
+      row.getCalcValue("sic").map(sic => createEnterpriseRecord(ern,"sic07", sic))
     ).collect{case Some(v) => v}
 
   private def rowToReportingUnit(row: Row, rurn: String, ruref: String, ern: String, entref: String): Seq[(String, RowObject)] = Seq(createUnitRecord(ern, rurn, "rurn", rurn), createUnitRecord(ern, ruref, "ruref", ruref),
@@ -109,10 +115,9 @@ trait WithConversionHelper {
 
   private def getID(row: Row, id: String) = row.getString(id).map(_.toString).getOrElse(throw new IllegalArgumentException(s"$id must be present"))
 
-  private def generateEntKey(ern: String) = s"${ern.reverse}~$ENTERPRISE_DATA_TIMEPERIOD"
+  private def generateEntKey(ern:String) = s"${ern.reverse}~$TIME_PERIOD"
 
-  private def generateKey(ern: String, unitType: String) = s"${ern.reverse}~$ENTERPRISE_DATA_TIMEPERIOD~$unitType"
+  private def generateLouKey(ern:String, lou:String) = s"${ern.reverse}~$TIME_PERIOD~$lou"
 
-  private def generateLinkKey(id: String, suffix: String) = s"$id~$suffix~$ENTERPRISE_DATA_TIMEPERIOD"
-
+  private def generateLinkKey(id:String, suffix:String) = s"$id~$suffix~$TIME_PERIOD"
 }

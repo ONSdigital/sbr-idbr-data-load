@@ -43,6 +43,7 @@ trait TestData {
       ReportingUnit("2000000001", Some("1231231233"), "99000000003", Some("11000000004"), "house", None, Some("legal"), "add1", Some("2"), Some("3"), Some("4"), Some("5"), "postcode", "42123", "8" , "15", "4", "prn")
     )
   }
+  def getKeyByName(businessName:String): String = ent.collect{case Enterprise(ern,_,Some(`businessName`),_,_,_) => ern}.head
 
   def testEnterpriseLinks(entLinks: Seq[UnitLinks]) = {
     Seq(

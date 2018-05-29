@@ -7,6 +7,7 @@ import scala.util.Try
 /**
   *
   */
+
 case class Enterprise(ern: String, entref: Option[String], businessName: Option[String], PostCode: Option[String], legalStatus: Option[String], sic: Option[String])
 
 object Enterprise {
