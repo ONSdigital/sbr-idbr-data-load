@@ -27,8 +27,8 @@ trait WithConversionHelper {
       case "lou" => {
         val lurn  = getID(row, "lou")
         val luref = getID(row, "luref")
-        val rurn  = getID(row, "rurn")
-        Tables(rowToLocalUnit(row, lurn, luref ,ern, entref), rowToLocalUnitLinks(row, keyStr, ern, rurn))
+        //val rurn  = getID(row, "rurn")
+        Tables(rowToLocalUnit(row, lurn, luref ,ern, entref), rowToLocalUnitLinks(row, keyStr, ern/*, rurn*/))
       }
       case "reu" => {
         val rurn  = getID(row, "rurn")
@@ -86,11 +86,11 @@ trait WithConversionHelper {
       row.getString("prn").map(prn => createUnitRecord(ern, rurn, "prn", prn))
     ).collect{case  Some(v) => v}
 
-  private def rowToLocalUnitLinks(row: Row, keyStr: String, ern: String, rurn: String):Seq[(String, RowObject)] = row.getString("lou").map(lou => Seq(
+  private def rowToLocalUnitLinks(row: Row, keyStr: String, ern: String/*, rurn: String*/):Seq[(String, RowObject)] = row.getString("lou").map(lou => Seq(
     createLinksRecord(keyStr, s"$childPrefix$lou", localUnit),
-    createLinksRecord(generateLinkKey(rurn, reportingUnit), s"$childPrefix$lou", localUnit),
-    createLinksRecord(generateLinkKey(lou, localUnit), s"$parentPrefix$enterprise", ern),
-    createLinksRecord(generateLinkKey(lou, localUnit), s"$parentPrefix$reportingUnit", rurn)
+    //createLinksRecord(generateLinkKey(rurn, reportingUnit), s"$childPrefix$lou", localUnit),
+    createLinksRecord(generateLinkKey(lou, localUnit), s"$parentPrefix$enterprise", ern)//,
+    //createLinksRecord(generateLinkKey(lou, localUnit), s"$parentPrefix$reportingUnit", rurn)
   )).getOrElse (Seq[(String, RowObject)]())
 
   private def rowToUnitLinks(row:Row, keyStr:String, ern:String, unitType: String, childType: String, parentType: String):Seq[(String, RowObject)] = row.getString(unitType).map(unitType => Seq(
