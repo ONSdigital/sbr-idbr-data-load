@@ -68,7 +68,7 @@ trait WithConversionHelper {
       row.getCalcValue("sic").map(sic => createEnterpriseRecord(ern,"sic07", sic))
     ).collect{case Some(v) => v}
 
-  private def rowToReportingUnit(row: Row, rurn: String, ruref: String, ern: String, entref: String): Seq[(String, RowObject)] = Seq(createUnitRecord(ern, rurn, "rurn", rurn), createUnitRecord(ern, ruref, "ruref", ruref), createUnitRecord(ern, rurn, "entref", entref), createUnitRecord(ern, rurn, "ern", ern)) ++
+  private def rowToReportingUnit(row: Row, rurn: String, ruref: String, ern: String, entref: String): Seq[(String, RowObject)] = Seq(createUnitRecord(ern, rurn, "rurn", rurn), createUnitRecord(ern, rurn, "ruref", ruref), createUnitRecord(ern, rurn, "entref", entref), createUnitRecord(ern, rurn, "ern", ern)) ++
     Seq(
       row.getString("name").map(bn  => createUnitRecord(ern, rurn, "name", bn)),
       row.getString("tradestyle").map(tradingStyle => createUnitRecord(ern, rurn, "trading_style", tradingStyle.trim)),
