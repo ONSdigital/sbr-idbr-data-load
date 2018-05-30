@@ -5,7 +5,7 @@ pipeline {
     environment {
         RELEASE_TYPE = "PATCH"
 
-        BRANCH_DEV = "reg-933"
+        BRANCH_DEV = "fixed-period-rowkey"
         BRANCH_TEST = "release"
         BRANCH_PROD = "master"
 
