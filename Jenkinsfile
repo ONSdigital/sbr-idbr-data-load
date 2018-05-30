@@ -5,7 +5,7 @@ pipeline {
     environment {
         RELEASE_TYPE = "PATCH"
 
-        BRANCH_DEV = "develop"
+        BRANCH_DEV = "fixed-period-rowkey"
         BRANCH_TEST = "release"
         BRANCH_PROD = "master"
 
@@ -19,7 +19,7 @@ pipeline {
 
         ORGANIZATION = "ons"
         TEAM = "sbr"
-        MODULE_NAME = "sbr-local-unit-data-load"
+        MODULE_NAME = "sbr-local-unit-data-"
 
         NAMESPACE = "sbr_dev_db"
     }
@@ -78,9 +78,9 @@ def copyToHBaseNode() {
                          string(credentialsId: "HDFS_JAR_PATH_DEV", variable: 'JAR_PATH')]) {
             sh '''
                 ssh sbr-$DEPLOY_DEV-ci@$HBASE_NODE mkdir -p $MODULE_NAME/lib
-                scp ${WORKSPACE}/target/scala-*/sbr-local-unit-data-load*.jar sbr-$DEPLOY_DEV-ci@$HBASE_NODE:$MODULE_NAME/lib/
+                scp ${WORKSPACE}/target/scala-*/sbr-idbr-data-load*.jar sbr-$DEPLOY_DEV-ci@$HBASE_NODE:$MODULE_NAME/lib/
                 echo "Successfully copied jar file to $MODULE_NAME/lib directory on $HBASE_NODE"
-                ssh sbr-$DEPLOY_DEV-ci@$HBASE_NODE hdfs dfs -put -f $MODULE_NAME/lib/sbr-local-unit-data-load*.jar $JAR_PATH
+                ssh sbr-$DEPLOY_DEV-ci@$HBASE_NODE hdfs dfs -put -f $MODULE_NAME/lib/sbr-idbr-data-load*.jar $JAR_PATH
                 echo "Successfully copied jar file to HDFS"
 	        '''
         }

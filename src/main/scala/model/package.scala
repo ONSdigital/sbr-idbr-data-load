@@ -9,5 +9,5 @@ package object model {
     def toKeyValue = new KeyValue(key.getBytes, colFamily.getBytes, qualifier.getBytes, value.getBytes)
   }
 
-  case class Tables(enterprises: Seq[(String, RowObject)],links:Seq[(String, RowObject)])
+  case class Tables(units: Seq[(String, RowObject)],links:Seq[(String, RowObject)])
 }

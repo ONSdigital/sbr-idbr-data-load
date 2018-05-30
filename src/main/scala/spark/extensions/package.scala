@@ -9,21 +9,21 @@ package object SQL {
 
   implicit class SqlRowExtensions(val row:Row) {
 
-    def getString(field:String): Option[String] = getValue[String](field)
+    def getString(field: String): Option[String] = getValue[String](field)
 
-    def getLong(field:String): Option[Long] = getValue[Long](field)
+    def getLong(field :String): Option[Long] = getValue[Long](field)
 
-    def getInt(field:String): Option[Int] = getValue[Int](field)
+    def getInt(field: String): Option[Int] = getValue[Int](field)
 
-    def getStringSeq(field:String): Option[Seq[String]] = getSeq(field,Some((s:String) => s.trim.nonEmpty))
+    def getStringSeq(field: String): Option[Seq[String]] = getSeq(field,Some((s:String) => s.trim.nonEmpty))
 
-    def getLongSeq(field:String): Option[Seq[Long]] = getSeq[Long](field)
+    def getLongSeq(field: String): Option[Seq[Long]] = getSeq[Long](field)
 
-    def getSeq[T](fieldName:String, eval:Option[T => Boolean] = None): Option[Seq[T]] = if(isNull(fieldName)) None else Some(row.getSeq[T](row.fieldIndex(fieldName)).filter(v => v!=null && eval.map(_(v)).getOrElse(true)))
+    def getSeq[T](fieldName: String, eval:Option[T => Boolean] = None): Option[Seq[T]] = if(isNull(fieldName)) None else Some(row.getSeq[T](row.fieldIndex(fieldName)).filter(v => v!=null && eval.map(_(v)).getOrElse(true)))
 
-    def isNull(field:String) = row.isNullAt(row.fieldIndex(field))
+    def isNull(field :String) = row.isNullAt(row.fieldIndex(field))
 
-    def getCalcValue(fieldName:String): Option[String] = {
+    def getCalcValue(fieldName: String): Option[String] = {
       val v = isNull(fieldName)
       v match{
         case true  => Some("")

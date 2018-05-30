@@ -12,9 +12,9 @@ import scala.reflect.ClassTag
 /**
   *
   */
-object HBaseDataReader{
+object HBaseDataReader {
 
-  type DataMap = (String,Iterable[(String, String)])
+  type DataMap = (String ,Iterable[(String, String)])
 
   def getKeyValue(kv:KeyValue) =
     (Bytes.toString(kv.getRowArray).slice(kv.getRowOffset, kv.getRowOffset + kv.getRowLength),
