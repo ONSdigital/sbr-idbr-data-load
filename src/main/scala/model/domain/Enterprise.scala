@@ -7,20 +7,21 @@ import scala.util.Try
 /**
   *
   */
-case class Enterprise(ern:String, entref:Option[String], businessName:Option[String], PostCode:Option[String], legalStatus:Option[String], sic:Option[String])
 
-object Enterprise{
+case class Enterprise(ern: String, entref: Option[String], businessName: Option[String], PostCode: Option[String], legalStatus: Option[String], sic: Option[String])
+
+object Enterprise {
 
   def apply(row:util.NavigableMap[Array[Byte],Array[Byte]]) = {
 
-    def getValue(key:String) = Try{new String(row.get(key.getBytes))}.toOption
+    def getValue(key: String) = Try{new String(row.get(key.getBytes))}.toOption
 
     new Enterprise(
       new String(row.get("ern".getBytes)),
       getValue("entref"),
       getValue("name"),
       getValue("postcode"),
-      getValue("legalstatus"),
+      getValue("legal_status"),
       getValue("sic07"))
   }
 
@@ -32,11 +33,11 @@ object Enterprise{
     val ern = entry._2.find(_._1=="ern").get._2
 
     new Enterprise(
-      ern,
+      entry.toString(),
       getValue("entref"),
       getValue("name"),
       getValue("postcode"),
-      getValue("legalstatus"),
+      getValue("legal_status"),
       getValue("sic07"))
   }
 

@@ -8,12 +8,12 @@ import spark.SparkSessionManager
 /**
   *
   */
-trait EnterpriseAssemblerService extends HBaseConnectionManager with SparkSessionManager{
+trait EnterpriseAssemblerService extends HBaseConnectionManager with SparkSessionManager {
 
   def loadFromCsv{
-    withSpark{ implicit SparkSession => CsvDAO.csvToHFile(SparkSession)}
+    withSpark{ implicit SparkSession => CsvDAO.csvToHFile(SparkSession) }
   }
 
-  def loadFromHFile = withHbaseConnection { implicit connection: Connection => HBaseDao.loadHFiles}
+  def loadFromHFile = withHbaseConnection { implicit connection: Connection => HBaseDao.loadHFiles }
 
 }
