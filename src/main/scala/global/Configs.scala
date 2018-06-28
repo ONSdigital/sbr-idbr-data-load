@@ -56,7 +56,7 @@ object Configs{
   Try{config.getString("files.ent.csv")}.map(conf.set("files.ent.csv",_)).getOrElse(conf.set("files.ent.csv", s"$dataDir/ent.csv"))
   Try{config.getString("files.reu.csv")}.map(conf.set("files.reu.csv",_)).getOrElse(conf.set("files.reu.csv", s"$dataDir/reu.csv"))
 
-  Try{config.getString("enterprise.data.timeperiod")}.map(conf.set("enterprise.data.timeperiod",_)).getOrElse(conf.set("enterprise.data.timeperiod","201801"))
+  Try{config.getString("enterprise.data.timeperiod")}.map(conf.set("enterprise.data.timeperiod",_)).getOrElse(conf.set("enterprise.data.timeperiod","201804"))
   Try{config.getString("spark.deployment.mode")}.map(conf.set("spark.deployment.mode",_)).getOrElse(conf.set("spark.deployment.mode","local"))
 
 
