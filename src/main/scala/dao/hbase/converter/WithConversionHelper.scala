@@ -33,7 +33,7 @@ trait WithConversionHelper {
       case "reu" => {
         val rurn  = getID(row, "rurn")
         val ruref = getID(row, "ruref")
-        Tables(rowToReportingUnit(row, rurn, ruref, ern, entref), rowToUnitLinks(row, keyStr, ern, "ruref", reportingUnit, enterprise))
+        Tables(rowToReportingUnit(row, rurn, ruref, ern, entref), rowToUnitLinks(row, keyStr, ern, "rurn", reportingUnit, enterprise))
       }
     }
   }
