@@ -8,7 +8,7 @@ import scala.util.Try
   *
   */
 
-case class Enterprise1(ern: String, entref: Option[String], businessName: Option[String], PostCode: Option[String], legalStatus: Option[String], sic: Option[String])
+case class Enterprise(ern: String, entref: Option[String], businessName: Option[String], PostCode: Option[String], legalStatus: Option[String], sic: Option[String])
 
 object Enterprise {
 
@@ -16,7 +16,7 @@ object Enterprise {
 
     def getValue(key: String) = Try{new String(row.get(key.getBytes))}.toOption
 
-    new Enterprise1(
+    new Enterprise(
       new String(row.get("ern".getBytes)),
       getValue("entref"),
       getValue("name"),
@@ -32,7 +32,7 @@ object Enterprise {
     def getValue(qualifier:String) = Try{entry._2.find(_._1==qualifier).get._2}.toOption
     val ern = entry._2.find(_._1=="ern").get._2
 
-    new Enterprise1(
+    new Enterprise(
       entry.toString(),
       getValue("entref"),
       getValue("name"),
