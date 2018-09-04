@@ -42,11 +42,21 @@ assemblyMergeStrategy in assembly := {
 
 mainClass in (Compile,run) := Some("assembler.AssemblerMain")
 
-lazy val myParameters = Array("LINKS", "ons",
-  "src/main/resources/data/links/hfile", "LOU",
-  "ons", "src/main/resources/data/lou/hfile",
-  "src/main/resources/data/test.parquet", "src/main/resources/data/lou.csv",
-  "src/main/resources/data/reu.csv", "localhost", "2181", "201802", "local")
+lazy val myParameters = Array(
+  "ons",
+  "links",
+  "src/main/resources/data/hfile/unit_links/ent",
+  "src/main/resources/data/hfile/unit_links/lou",
+  "src/main/resources/data/hfile/unit_links/reu",
+  "ent",
+  "src/main/resources/data/hfile/ent",
+  "lou",
+  "src/main/resources/data/hfile/lou",
+  "ru",
+  "src/main/resources/data/hfile/ru",
+  "src/main/resources/data/Complex_LUs.csv",
+  "src/main/resources/data/Complex_Ents.csv",
+  "src/main/resources/data/Complex_RUs.csv", "localhost", "2181", "201801", "local")
 
 lazy val runWithArgs = taskKey[Unit]("run-args")
 

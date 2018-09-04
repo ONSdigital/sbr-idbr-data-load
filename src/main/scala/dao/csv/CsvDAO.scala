@@ -20,7 +20,9 @@ object CsvDAO extends WithConversionHelper with HFileWriter with  DataFrameHelpe
     val sicRDD = getClassification(df).coalesce(df.rdd.getNumPartitions)
     val entRDD = entDF.join(sicRDD, Seq("ern"), joinType="leftOuter").dropDuplicates("ern","sic07").withColumn("sic", coalesce(col("sic07"), col("temp_sic")))
     val groupedLEU = groupLEU(entDF)
-    val louRDD = louDF.rdd.map(row => toRecord(row, "lou")).cache
+    val ruForLOUDF = reuDF.select("ern","rurn","ruref")
+    val louRUDF = louDF.join(ruForLOUDF, Seq("ern"), joinType = "leftOuter").dropDuplicates("lou")
+    val louRDD = louRUDF.rdd.map(row => toRecord(row, "lou")).cache
     val leuRDD = groupedLEU.join(entRDD,Seq("ern"),joinType = "outer").rdd.map(row => toRecord(row, "ent")).cache
     val reuRDD = reuDF.rdd.map(row => toRecord(row, "reu")).cache
 
