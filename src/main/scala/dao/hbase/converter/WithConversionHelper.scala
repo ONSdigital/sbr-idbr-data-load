@@ -35,6 +35,17 @@ trait WithConversionHelper {
         val ruref = getID(row, "ruref")
         Tables(rowToReportingUnit(row, rurn, ruref, ern, entref), rowToUnitLinks(row, keyStr, ern, "rurn", reportingUnit, enterprise))
       }
+
+    }
+  }
+
+  def toRecordSingle(row: Row, recordType: String): TableSingle = {
+    val ern = getID(row, "ern")
+    recordType match {
+      case "leu" => {
+        val ubrn = getID(row, "ubrn")
+        TableSingle(rowToLegalUnit(row, ubrn, ern))
+      }
     }
   }
 
@@ -66,6 +77,20 @@ trait WithConversionHelper {
       row.getString("postcode").map(pc => createEnterpriseRecord(ern,"postcode",pc)),
       row.getString("status").map(ls => createEnterpriseRecord(ern,"legal_status",ls)),
       row.getCalcValue("sic").map(sic => createEnterpriseRecord(ern,"sic07", sic))
+    ).collect{case Some(v) => v}
+
+  private def rowToLegalUnit(row: Row, ubrn: String, ern: String): Seq[(String, RowObject)] = Seq(createUnitRecord(ern, ubrn, "ubrn", ubrn))++
+    Seq(
+      row.getString("name").map(bn  => createUnitRecord(ern, ubrn, "name", bn)),
+      row.getString("tradstyle").map(tradingStyle => createUnitRecord(ern,ubrn,"trading_style",tradingStyle.trim)),
+      row.getString("address1").map(a1 => createUnitRecord(ern,ubrn,"address1",a1)),
+      row.getString("address2").map(a2 => createUnitRecord(ern,ubrn,"address2",a2)),
+      row.getString("address3").map(a3 => createUnitRecord(ern,ubrn,"address3",a3)),
+      row.getString("address4").map(a4 => createUnitRecord(ern,ubrn,"address4",a4)),
+      row.getString("address5").map(a5 => createUnitRecord(ern,ubrn,"address5",a5)),
+      row.getString("postcode").map(pc => createUnitRecord(ern,ubrn,"postcode",pc)),
+      row.getString("status").map(ls => createUnitRecord(ern,ubrn,"legal_status",ls)),
+      row.getCalcValue("sic").map(sic => createUnitRecord(ern,ubrn,"sic07", sic))
     ).collect{case Some(v) => v}
 
   private def rowToReportingUnit(row: Row, rurn: String, ruref: String, ern: String, entref: String): Seq[(String, RowObject)] = Seq(createUnitRecord(ern, rurn, "rurn", rurn), createUnitRecord(ern, rurn, "ruref", ruref), createUnitRecord(ern, rurn, "entref", entref), createUnitRecord(ern, rurn, "ern", ern)) ++

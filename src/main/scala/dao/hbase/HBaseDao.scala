@@ -20,6 +20,7 @@ object HBaseDao {
     loadUnitHFile(connection, HBASE_ENT_TABLE_NAME, PATH_TO_ENT_HFILE)
     loadUnitHFile(connection, HBASE_LOU_TABLE_NAME, PATH_TO_LOU_HFILE)
     loadUnitHFile(connection, HBASE_REU_TABLE_NAME, PATH_TO_REU_HFILE)
+    loadUnitHFile(connection, HBASE_LEU_TABLE_NAME, PATH_TO_LEU_HFILE)
   }
 
   def loadLinksHFile(implicit connection:Connection) = wrapTransaction(HBASE_LINKS_TABLE_NAME, Try(conf.getStrings("hbase.table.namespace").head).toOption) { (table, admin) =>
