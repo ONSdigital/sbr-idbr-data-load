@@ -54,9 +54,13 @@ lazy val myParameters = Array(
   "src/main/resources/data/hfile/lou",
   "ru",
   "src/main/resources/data/hfile/ru",
-  "src/main/resources/data/Complex_LUs.csv",
-  "src/main/resources/data/Complex_Ents.csv",
-  "src/main/resources/data/Complex_RUs.csv", "localhost", "2181", "201801", "local")
+  "leu",
+  "src/main/resources/data/hfile/leu",
+  "src/main/resources/data/Complex_LUs_2.csv",
+  "src/main/resources/data/Complex_LeU_to_ENT_2.csv",
+  "src/main/resources/data/Complex_RUs_2.csv", "localhost", "2181", "201804", "local")
+
+
 
 lazy val runWithArgs = taskKey[Unit]("run-args")
 

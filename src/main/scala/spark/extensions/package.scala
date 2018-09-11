@@ -43,5 +43,31 @@ package object SQL {
         case None  => Some(v)
       }}
 
+    /**
+      * returns option of value
+      * Retuns None if field is present but value is null or if field is not present
+      * returns Some(VALUE_OF_THE_FIELD) otherwise
+      * */
+    def getOption[T](field:String)= {
+      if(row.isNull(field)) None
+      else Option[T](row.getAs[T](field))
+    }
+
+    /**
+      * Returns None if:
+      * 1. row does not contain field with given name
+      * 2. value is null
+      * 3. value's data type is not String
+      * returns Some(...) of value
+      * otherwise
+      * */
+    def getStringOption(name:String) = {
+      getOption[String](name)
+    }
+
+    def getValueOrEmptyStr(fieldName:String) = getStringOption(fieldName).getOrElse("")
+
+    def getValueOrNull(fieldName:String) = getStringOption(fieldName).getOrElse(null)
+
    }
 }
