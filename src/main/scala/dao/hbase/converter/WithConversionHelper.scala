@@ -7,6 +7,8 @@ import org.apache.spark.sql.Row
 import spark.extensions.SQL.SqlRowExtensions
 import Configs._
 
+import scala.util.Try
+
 trait WithConversionHelper {
 
   val localUnit = "LOU"
@@ -53,7 +55,10 @@ trait WithConversionHelper {
     createUnitRecord(ern, lurn, "luref", luref),
     createUnitRecord(ern, lurn, "ern", ern),
     createUnitRecord(ern, lurn, "entref", entref),
-    createUnitRecord(ern, lurn, "prn", row.getValueOrEmptyStr("prn")))++
+    {
+      val prn = Try{row.getString("prn").get}.getOrElse("")
+      createUnitRecord(ern, lurn, "prn", prn)
+    })++
     Seq(
       row.getString("rurn").map(rurn => createUnitRecord(ern, lurn, "rurn", rurn)),
       row.getString("ruref").map(ruref => createUnitRecord(ern, lurn, "ruref", ruref)),
@@ -71,7 +76,10 @@ trait WithConversionHelper {
 
   private def rowToEnterprise(row: Row, ern: String, entref: String): Seq[(String, RowObject)] = Seq(createEnterpriseRecord(ern, "ern", ern),
     createEnterpriseRecord(ern, "entref", entref),
-    createEnterpriseRecord(ern,  "prn", row.getValueOrEmptyStr("prn")))++
+    {
+      val prn = Try{row.getString("prn").get}.getOrElse("")
+      createEnterpriseRecord(ern, "prn", prn)
+    })++
     Seq(
       row.getString("name").map(bn  => createEnterpriseRecord(ern,"name",bn)),
       row.getString("tradstyle").map(tradingStyle => createEnterpriseRecord(ern,"trading_style",tradingStyle.trim)),
