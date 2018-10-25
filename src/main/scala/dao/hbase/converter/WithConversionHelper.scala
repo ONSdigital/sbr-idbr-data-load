@@ -90,7 +90,7 @@ trait WithConversionHelper {
       row.getString("address5").map(a5 => createEnterpriseRecord(ern,"address5",a5)),
       row.getString("postcode").map(pc => createEnterpriseRecord(ern,"postcode",pc)),
       row.getString("status").map(ls => createEnterpriseRecord(ern,"legal_status",ls)),
-      row.getCalcValue("sic").map(sic => createEnterpriseRecord(ern,"sic07", sic))
+      row.getCalcValue("sic07").map(sic => createEnterpriseRecord(ern,"sic07", sic))
     ).collect{case Some(v) => v}
 
 
