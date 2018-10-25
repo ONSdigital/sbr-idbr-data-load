@@ -42,7 +42,10 @@ trait WithConversionHelper {
   }
 
   def toRecordSingle(row: Row, recordType: String): TableSingle = {
-    val ern = getID(row, "ern")
+    //val ern = getID(row, "ern")
+
+    val ern = Try{row.getString("ern").get}.getOrElse("")
+
     recordType match {
       case "leu" => {
         val ubrn = getID(row, "id")
