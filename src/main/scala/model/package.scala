@@ -10,4 +10,5 @@ package object model {
   }
 
   case class Tables(units: Seq[(String, RowObject)],links:Seq[(String, RowObject)])
+  case class TableSingle(units: Seq[(String, RowObject)])
 }

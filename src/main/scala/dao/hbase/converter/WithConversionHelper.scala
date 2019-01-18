@@ -7,6 +7,8 @@ import org.apache.spark.sql.Row
 import spark.extensions.SQL.SqlRowExtensions
 import Configs._
 
+import scala.util.Try
+
 trait WithConversionHelper {
 
   val localUnit = "LOU"
@@ -35,10 +37,31 @@ trait WithConversionHelper {
         val ruref = getID(row, "ruref")
         Tables(rowToReportingUnit(row, rurn, ruref, ern, entref), rowToUnitLinks(row, keyStr, ern, "rurn", reportingUnit, enterprise))
       }
+
     }
   }
 
-  private def rowToLocalUnit(row: Row, lurn: String, luref: String,ern:String, entref: String): Seq[(String, RowObject)] = Seq(createUnitRecord(ern, lurn, "lurn", lurn), createUnitRecord(ern, lurn, "luref", luref), createUnitRecord(ern, lurn, "ern", ern), createUnitRecord(ern, lurn, "entref", entref))++
+  def toRecordSingle(row: Row, recordType: String): TableSingle = {
+    val ern = getID(row, "ern")
+
+    //val ern = Try{row.getString("ern").get}.getOrElse("9999999999")
+
+    recordType match {
+      case "leu" => {
+        val ubrn = getID(row, "id")
+        TableSingle(rowToLegalUnit(row, ubrn, ern))
+      }
+    }
+  }
+
+  private def rowToLocalUnit(row: Row, lurn: String, luref: String,ern:String, entref: String): Seq[(String, RowObject)] = Seq(createUnitRecord(ern, lurn, "lurn", lurn),
+    createUnitRecord(ern, lurn, "luref", luref),
+    createUnitRecord(ern, lurn, "ern", ern),
+    createUnitRecord(ern, lurn, "entref", entref),
+    {
+      val prn = Try{row.getString("prn").get}.getOrElse("")
+      createUnitRecord(ern, lurn, "prn", prn)
+    })++
     Seq(
       row.getString("rurn").map(rurn => createUnitRecord(ern, lurn, "rurn", rurn)),
       row.getString("ruref").map(ruref => createUnitRecord(ern, lurn, "ruref", ruref)),
@@ -54,7 +77,12 @@ trait WithConversionHelper {
       row.getCalcValue("employees").map(employees => createUnitRecord(ern,lurn,"employees",employees))
     ).collect{case Some(v) => v}
 
-  private def rowToEnterprise(row: Row, ern: String, entref: String): Seq[(String, RowObject)] = Seq(createEnterpriseRecord(ern, "ern", ern), createEnterpriseRecord(ern, "entref", entref))++
+  private def rowToEnterprise(row: Row, ern: String, entref: String): Seq[(String, RowObject)] = Seq(createEnterpriseRecord(ern, "ern", ern),
+    createEnterpriseRecord(ern, "entref", entref),
+    {
+      val prn = Try{row.getString("prn").get}.getOrElse("")
+      createEnterpriseRecord(ern, "prn", prn)
+    })++
     Seq(
       row.getString("name").map(bn  => createEnterpriseRecord(ern,"name",bn)),
       row.getString("tradstyle").map(tradingStyle => createEnterpriseRecord(ern,"trading_style",tradingStyle.trim)),
@@ -66,6 +94,24 @@ trait WithConversionHelper {
       row.getString("postcode").map(pc => createEnterpriseRecord(ern,"postcode",pc)),
       row.getString("status").map(ls => createEnterpriseRecord(ern,"legal_status",ls)),
       row.getCalcValue("sic").map(sic => createEnterpriseRecord(ern,"sic07", sic))
+    ).collect{case Some(v) => v}
+
+
+  private def rowToLegalUnit(row: Row, ubrn: String, ern: String): Seq[(String, RowObject)] = Seq(createUnitRecord(ern, ubrn, "ubrn", ubrn)) ++
+    Seq(
+      row.getString("CompanyNo").map(crn  => createUnitRecord(ern, ubrn, "crn", crn)),
+      row.getString("BusinessName").map(bn  => createUnitRecord(ern, ubrn, "name", bn)),
+      row.getString("TradingStyle").map(tradingStyle => createUnitRecord(ern,ubrn,"trading_style",tradingStyle.trim)),
+      row.getString("Address1").map(a1 => createUnitRecord(ern,ubrn,"address1",a1)),
+      row.getString("Address2").map(a2 => createUnitRecord(ern,ubrn,"address2",a2)),
+      row.getString("Address3").map(a3 => createUnitRecord(ern,ubrn,"address3",a3)),
+      row.getString("Address4").map(a4 => createUnitRecord(ern,ubrn,"address4",a4)),
+      row.getString("Address5").map(a5 => createUnitRecord(ern,ubrn,"address5",a5)),
+      row.getString("PostCode").map(pc => createUnitRecord(ern,ubrn,"postcode",pc)),
+      row.getCalcValue("IndustryCode").map(sic => createUnitRecord(ern,ubrn,"sic07", sic)),
+      row.getCalcValue("Turnover").map(turnover => createUnitRecord(ern,ubrn,"turnover", turnover)),
+      row.getCalcValue("TradingStatus").map(trading_status => createUnitRecord(ern,ubrn,"trading_status", trading_status)),
+      row.getCalcValue("LegalStatus").map(legal_status => createUnitRecord(ern,ubrn,"legal_status", legal_status))
     ).collect{case Some(v) => v}
 
   private def rowToReportingUnit(row: Row, rurn: String, ruref: String, ern: String, entref: String): Seq[(String, RowObject)] = Seq(createUnitRecord(ern, rurn, "rurn", rurn), createUnitRecord(ern, rurn, "ruref", ruref), createUnitRecord(ern, rurn, "entref", entref), createUnitRecord(ern, rurn, "ern", ern)) ++
